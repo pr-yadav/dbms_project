@@ -1,0 +1,20 @@
+{
+  "name": "health_care_management",
+  "version": "1.0.0",
+  "description": "Online health care mangement system for IITK",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pr-yadav/dbms_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pr-yadav/dbms_project/issues"
+  },
+  "homepage": "https://github.com/pr-yadav/dbms_project#readme"
+}
