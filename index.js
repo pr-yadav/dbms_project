@@ -1,9 +1,27 @@
 const http = require('http');
-http.createServer((req,res)=>{
-    console.log('Request for ' + req.url + ' by method ' + req.method);
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end("Server Started");
-}).listen(8080,"localhost",function(){
-    console.log('Server running at http://localhost:8080');
+const express=require('express');
+const app =express();
+const hostname='localhost';
+const port=12345;
+const mysql=require('mysql2');
+
+const login=require('./routes/login.js');
+
+app.use('/',login);
+
+const db=mysql.createConnection({
+    user:"cs315",
+    host:"localhost",
+    password:"Cs315_health_booklet",
+    databse:"health",
+    port:"3306"
+
 });
+app.get("/login",(req,res)=>{
+    res.json({message:"msldkml"});
+});
+
+const server=http.createServer(app).listen(port,hostname,()=>{
+    console.log('Server running at http://localhost:12345');
+});
+

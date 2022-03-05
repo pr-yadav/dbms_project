@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/pr-yadav/dbms_project/issues"
   },
-  "homepage": "https://github.com/pr-yadav/dbms_project#readme"
+  "homepage": "https://github.com/pr-yadav/dbms_project#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7"
+  }
 }

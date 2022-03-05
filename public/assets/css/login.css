@@ -1,0 +1,19 @@
+html,body{
+    height: 100%;
+    background-image: linear-gradient(180deg, rgb(0, 110, 255), rgb(172, 172, 199)
+    );
+}
+form {
+    display: inline-block;
+}
+h1{
+    align-items: center;
+    text-align: center;
+}
+label{
+    text-align: right;
+    align-items: right;
+}
+p{
+    text-align: right;
+}
