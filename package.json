@@ -18,8 +18,14 @@
   },
   "homepage": "https://github.com/pr-yadav/dbms_project#readme",
   "dependencies": {
+    "axios": "^0.26.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.4",
     "express": "^4.17.3",
     "mysql2": "^2.3.3",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "react-router-dom": "^6.2.2"
   }
 }

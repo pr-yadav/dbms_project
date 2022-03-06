@@ -22,7 +22,7 @@ CREATE TABLE prescription(
     `time` DATETIME DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (prescriptionID),
     FOREIGN KEY(studentID) REFERENCES student(studentID),
-    FOREIGN KEY(doctorID) REFERENCES student(doctorID)
+    FOREIGN KEY(doctorID) REFERENCES doctor(doctorID)
 );
 CREATE TABLE medicine(
 	medicineID INT,
@@ -53,4 +53,8 @@ CREATE TABLE pharmacy(
 	medicineID INT NOT NULL,
     availability INT,
     FOREIGN KEY(medicineID) REFERENCES medicine(medicineID)
+);
+CREATE TABLE `admin`(
+	username VARCHAR(10),
+    `password` VARCHAR(256)
 );
