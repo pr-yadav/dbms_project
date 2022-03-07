@@ -1,5 +1,5 @@
 USE health;
-SELECT * FROM student;
+SELECT * FROM doctor;
 
 
 CREATE TABLE student(
@@ -19,7 +19,7 @@ CREATE TABLE doctor(
     PRIMARY KEY (doctorID)
 );
 CREATE TABLE prescription(
-	prescriptionID INT,
+	prescriptionID INT NOT NULL AUTO_INCREMENT,
     studentID INT NOT NULL,
     doctorID INT NOT NULL,
     `time` DATETIME DEFAULT CURRENT_TIMESTAMP(),
@@ -67,5 +67,5 @@ CREATE TABLE staff(
     `name` VARCHAR(50),
     mobile INT,
     department VARCHAR(30),
-    PRIMARY KEY (doctorID)
+    PRIMARY KEY (staffID)
 )

@@ -5,7 +5,7 @@ const Dashboard = async ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
-        console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
+        // console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
   
 
@@ -26,7 +26,7 @@ useEffect(()=>{
     }
 
   const database = await getData()
-  console.log(database[0])
+  // console.log(database[0])
   
   return(
     <>
@@ -44,13 +44,16 @@ useEffect(()=>{
       <tbody>
         {
           database.map((row)=>{
+            // row=JSON.stringify(row)
+            // console.log(row)
+            // console.log(row['address'])
             return(
               <tr>
-                <td>{row.student_Id}</td>
-                <td>{row.password}</td>
-                <td>{row.name}</td>
-                <td>{row.mobile}</td>
-                <td>{row.password}</td>
+                <td>{row['studentID']}</td>
+                <td>{row['password']}</td>
+                <td>{row['name']}</td>
+                <td>{row['mobile']}</td>
+                <td>{row['address']}</td>
               </tr>
             )
           })
