@@ -1,18 +1,25 @@
 import React, {useState} from 'react';
 import '../assets/css/Login.css';
-import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
-async function loginUser(credentials) {
-    return fetch('http://localhost:12345/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials)
-    }).then(data => data.json())
-}
 
-export default function Login({setToken}) {
+import { Button } from 'react-bootstrap';
+
+const Login = ({history}) => {
+
+    async function loginUser(credentials) {
+        return fetch('http://localhost:12345/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(credentials)
+        }).then(data => {
+            return data.json();
+        }).then((res)=>{
+            console.log(JSON.stringify(res))
+            sessionStorage.setItem('token', JSON.stringify(res))
+            history.push('/dashboard')
+        })
+    }
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
@@ -22,7 +29,7 @@ export default function Login({setToken}) {
             username,
             password
         });
-        setToken(token);
+        // setToken(token);
     }
     return(
         <div className="login-wrapper">
@@ -44,6 +51,4 @@ export default function Login({setToken}) {
     )
 }
 
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+export default Login;

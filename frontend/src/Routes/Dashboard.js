@@ -1,7 +1,12 @@
 import React, {useEffect} from 'react';
 import { Table } from 'react-bootstrap';
 
-const Dashboard = () => {
+const Dashboard = ({history}) => {
+  if(sessionStorage.length===0)
+    history.push('/login')
+  else{
+    console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
+  }
 
 
 useEffect(()=>{

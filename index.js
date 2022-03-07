@@ -15,8 +15,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 const login=require('./routes/login.js');
+const registerStudent=require('./routes/registerStudent.js')
 
 app.use('/',login);
+app.use('/',registerStudent)
 
 
 // app.use(function (req, res, next) {
