@@ -18,12 +18,14 @@ const login=require('./routes/login.js');
 const registerStudent=require('./routes/registerStudent.js')
 const registerDoctor=require('./routes/registerDoctor.js')
 const registerStaff=require('./routes/registerStaff.js')
+const getData=require('./routes/getData.js')
+
 
 app.use('/',login);
 app.use('/',registerStudent)
 app.use('/',registerDoctor)
 app.use('/',registerStaff)
-
+app.use('/',getData)
 
 // app.use(function (req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/dashboard');
