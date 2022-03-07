@@ -1,4 +1,7 @@
 USE health;
+SELECT * FROM student;
+
+
 CREATE TABLE student(
 	studentID INT,
     `password` VARCHAR(256),
@@ -58,3 +61,11 @@ CREATE TABLE `admin`(
 	username VARCHAR(10),
     `password` VARCHAR(256)
 );
+CREATE TABLE staff(
+	staffID INT,
+    `password` VARCHAR(256),
+    `name` VARCHAR(50),
+    mobile INT,
+    department VARCHAR(30),
+    PRIMARY KEY (doctorID)
+)

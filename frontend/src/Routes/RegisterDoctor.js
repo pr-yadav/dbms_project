@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
 
 
-const RegisterStudents= ({history}) => {
+const RegisterDoctor= ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
@@ -13,7 +13,7 @@ const RegisterStudents= ({history}) => {
     const [password, setPassword] = useState();
 
     async function registerUser(credentials) {
-        return fetch('http://localhost:12345/registerStudent', {
+        return fetch('http://localhost:12345/registerDoctor', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const RegisterStudents= ({history}) => {
             "password":"asd",
             "name":"fd",
             "mobile":1234567890,
-            "address":"sv"
+            "department":"sv"
         });
         // setToken(token);
     }
@@ -40,7 +40,7 @@ const RegisterStudents= ({history}) => {
 
     return(
       <div className="register-wrapper">
-        <h1>Register New Students</h1>
+        <h1>Register New Doctors</h1>
         <form onSubmit={handleSubmit}>
             <label>
                 <p>Username</p>
@@ -58,4 +58,4 @@ const RegisterStudents= ({history}) => {
     );
 }
 
-export default RegisterStudents;
+export default RegisterDoctor;

@@ -16,9 +16,13 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 const login=require('./routes/login.js');
 const registerStudent=require('./routes/registerStudent.js')
+const registerDoctor=require('./routes/registerDoctor.js')
+const registerStaff=require('./routes/registerStaff.js')
 
 app.use('/',login);
 app.use('/',registerStudent)
+app.use('/',registerDoctor)
+app.use('/',registerStaff)
 
 
 // app.use(function (req, res, next) {

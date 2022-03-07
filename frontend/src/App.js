@@ -4,7 +4,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './Routes/Dashboard';
 import Preferences from './Routes/Prefernces';
 import Login from './Routes/Login';
-import RegisterStudents from './Routes/RegisterStudents';
+import RegisterStudent from './Routes/RegisterStudent';
+import RegisterDoctor from './Routes/RegisterDoctor';
+import RegisterStaff from './Routes/RegisterStaff';
+
 
 // export function setToken(userToken){
 //     sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -23,7 +26,9 @@ function App() {
                 <Switch>
                     <Route path='/login' component={Login}/>
                     <Route path="/dashboard" component={Dashboard}/>
-                    <Route path="/registerStudent" component={RegisterStudents}/>
+                    <Route path="/registerStudent" component={RegisterStudent}/>
+                    <Route path="/registerDoctor" component={RegisterDoctor}/>
+                    <Route path="/registerStaff" component={RegisterStaff}/>
                 </Switch>
             </BrowserRouter>
         </div>
