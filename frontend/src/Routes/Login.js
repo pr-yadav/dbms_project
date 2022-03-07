@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import '../assets/css/Login.css';
 import PropTypes from 'prop-types';
-
+import { Button } from 'react-bootstrap';
 async function loginUser(credentials) {
-    return fetch('https://localhost:12345/login', {
+    return fetch('http://localhost:12345/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export default function Login({setToken}) {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await loginUser({
             username,
@@ -37,7 +37,7 @@ export default function Login({setToken}) {
                     <input type="password" onChange={e => setPassword(e.target.value)}/>
                 </label>
                 <div>
-                  < button type="submit">Submit</button>
+                  <Button type="submit">Submit</Button>
                 </div>
             </form>
         </div>

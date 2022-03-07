@@ -6,15 +6,18 @@ import Preferences from './Routes/Prefernces';
 import Login from './Routes/Login';
 import PropTypes from 'prop-types';
 function App() {
-  const [token, setToken] = useState();
-  if(!token){
-    return <Login setToken={setToken}/>
-  }
+  // const [token, setToken] = useState();
+  // if(!token){
+  //   return <Login setToken={setToken}/>
+  // }
   return (
     <div className="wrapper">
       <h1>Application</h1>
       <BrowserRouter>
         <Switch>
+          <Route path='/login'>
+            <Login/>
+            </Route>
           <Route path="/dashboard">
             <Dashboard />
           </Route>

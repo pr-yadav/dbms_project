@@ -10,6 +10,7 @@ const cors = require('cors');
 app.use(cors());
 
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
@@ -34,7 +35,6 @@ const db=mysql.createConnection({
     password:"Cs315_health_booklet",
     databse:"health",
     port:"3306"
-
 });
 const server=app.listen(port,hostname,()=>{
     console.log('Server running at http://localhost:12345');
