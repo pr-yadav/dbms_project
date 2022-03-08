@@ -14,7 +14,7 @@ USE health;
 -- SELECT * FROM prescription_desc;
 -- SELECT * FROM investigation;
 -- SELECT result FROM investigation WHERE prescriptionID=33
--- SELECT * FROM pharmacy;
+-- SELECT * FROM student;
 CREATE TABLE student(
 	studentID INT,
     `password` VARCHAR(256),
