@@ -1,6 +1,19 @@
 USE health;
-SELECT * FROM doctor;
-
+-- INSERT INTO medicine(`name`,manufacturer) VALUES("name1","m1");
+-- INSERT INTO medicine(`name`,manufacturer) VALUES("name2","m2");
+-- INSERT INTO medicine(`name`,manufacturer) VALUES("name3","m3");
+-- INSERT INTO test(`name`) VALUES("name1");
+-- INSERT INTO test(`name`) VALUES("name2");
+-- INSERT INTO test(`name`) VALUES("name2");
+-- ALTER TABLE medicine CHANGE medicineID medicineID INT AUTO_INCREMENT;
+-- SELECT MAX(medicineID) FROM medicine;
+-- SELECT * FROM test
+-- DELETE FROM health.test WHERE `name`="name2"
+-- SELECT * FROM test;
+-- SELECT * FROM prescription;
+-- SELECT * FROM prescription_desc;
+-- SELECT * FROM investigation;
+-- SELECT result FROM investigation WHERE prescriptionID=33
 
 CREATE TABLE student(
 	studentID INT,
@@ -28,13 +41,13 @@ CREATE TABLE prescription(
     FOREIGN KEY(doctorID) REFERENCES doctor(doctorID)
 );
 CREATE TABLE medicine(
-	medicineID INT,
+	medicineID INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50),
     manufacturer VARCHAR(50),
     PRIMARY KEY (medicineID)
 );
 CREATE TABLE test(
-	testID INT,
+	testID INT NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(50),
     PRIMARY KEY (testID)
 );
