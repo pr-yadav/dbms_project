@@ -9,6 +9,7 @@ import RegisterDoctor from './Routes/RegisterDoctor';
 import RegisterStaff from './Routes/RegisterStaff';
 import AddPrescription from './Routes/AddPrescription';
 import UpdateTest from './Routes/UpdateTest';
+import UpdatePharmacy from './Routes/UpdatePharmacy';
 
 
 
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/registerStaff" component={RegisterStaff}/>
                     <Route path="/addPrescription" component={AddPrescription}/>
                     <Route path="/updateTest" component={UpdateTest}/>
+                    <Route path="/updatePharmacy" component={UpdatePharmacy}/>
                 </Switch>
             </BrowserRouter>
         </div>

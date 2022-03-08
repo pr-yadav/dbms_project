@@ -21,6 +21,7 @@ const registerStaff=require('./routes/registerStaff.js')
 const getData=require('./routes/getData.js')
 const addPrescription=require('./routes/addPrescription.js')
 const updateTest=require('./routes/updateTest.js')
+const updatePharmacy=require('./routes/updatePharmacy.js')
 
 
 app.use('/',login);
@@ -30,6 +31,8 @@ app.use('/',registerStaff)
 app.use('/',getData)
 app.use('/',addPrescription)
 app.use('/',updateTest)
+app.use('/',updatePharmacy)
+
 
 // app.use(function (req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/dashboard');

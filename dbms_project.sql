@@ -1,7 +1,7 @@
 USE health;
--- INSERT INTO medicine(`name`,manufacturer) VALUES("name1","m1");
--- INSERT INTO medicine(`name`,manufacturer) VALUES("name2","m2");
--- INSERT INTO medicine(`name`,manufacturer) VALUES("name3","m3");
+-- INSERT INTO pharmacy VALUES(1,0);
+-- INSERT INTO pharmacy VALUES(2,0);
+-- INSERT INTO pharmacy VALUES(3,0);
 -- INSERT INTO test(`name`) VALUES("name1");
 -- INSERT INTO test(`name`) VALUES("name2");
 -- INSERT INTO test(`name`) VALUES("name2");
@@ -14,7 +14,7 @@ USE health;
 -- SELECT * FROM prescription_desc;
 -- SELECT * FROM investigation;
 -- SELECT result FROM investigation WHERE prescriptionID=33
-
+-- SELECT * FROM pharmacy;
 CREATE TABLE student(
 	studentID INT,
     `password` VARCHAR(256),
