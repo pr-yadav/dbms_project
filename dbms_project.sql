@@ -1,4 +1,12 @@
 USE health;
+SELECT * FROM investigation;
+SELECT health.prescription.prescriptionID,`name`,result,`time` FROM
+                (SELECT prescriptionID,`name`,result FROM
+                (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=1239)) AS tmp
+                INNER JOIN
+                health.test ON test.testID=tmp.testID) AS tmp2
+                INNER JOIN
+                health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;
 -- INSERT INTO pharmacy VALUES(1,0);
 -- INSERT INTO pharmacy VALUES(2,0);
 INSERT INTO student VALUES(1,"hbjskd","helo",0123456789,"jdk");

@@ -17,7 +17,7 @@ const Login = ({history}) => {
         }).then((res)=>{
             console.log(JSON.stringify(res))
             sessionStorage.setItem('token', JSON.stringify(res))
-            history.push('/dashboard')
+            history.push('/studentDashboard')
         })
     }
     const [username, setUserName] = useState();

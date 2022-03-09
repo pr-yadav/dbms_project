@@ -10,7 +10,7 @@ import RegisterStaff from './Routes/RegisterStaff';
 import AddPrescription from './Routes/AddPrescription';
 import UpdateTest from './Routes/UpdateTest';
 import UpdatePharmacy from './Routes/UpdatePharmacy';
-
+import StudentDashboard from './Routes/StudentDashboard'
 
 
 // export function setToken(userToken){
@@ -28,8 +28,9 @@ function App() {
             <h1>Application</h1>
             <BrowserRouter>
                 <Switch>
+                    <Route path='/' component={Login}/>
                     <Route path='/login' component={Login}/>
-                    <Route path="/dashboard" component={Dashboard}/>
+                    <Route path="/studentDashboard" component={StudentDashboard}/>
                     <Route path="/registerStudent" component={RegisterStudent}/>
                     <Route path="/registerDoctor" component={RegisterDoctor}/>
                     <Route path="/registerStaff" component={RegisterStaff}/>
