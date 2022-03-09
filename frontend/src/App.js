@@ -28,7 +28,7 @@ function App() {
             <h1>Application</h1>
             <BrowserRouter>
                 <Switch>
-                    <Route path='/' component={Login}/>
+                    {/* <Route path='/' component={Login}/> */}
                     <Route path='/login' component={Login}/>
                     <Route path="/studentDashboard" component={StudentDashboard}/>
                     <Route path="/registerStudent" component={RegisterStudent}/>
