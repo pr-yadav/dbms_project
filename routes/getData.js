@@ -1,55 +1,60 @@
 const express=require('express');
-const login=express.Router();
+const geData=express.Router();
 const index=require('../index');
-const path=require('path');
 const bodyParser=require('body-parser');
 const cors = require('cors');
-const bcrypt=require('bcrypt');
-const saltRounds=1;
-const mysql=require('mysql2')
+const { resolve } = require('path');
 
-login.use(cors());
+geData.use(cors());
 
-login.use(bodyParser.json());
-login.use(bodyParser.urlencoded({extended:false}));
+geData.use(bodyParser.json());
+geData.use(bodyParser.urlencoded({extended:false}));
 
-login.post('/getData', (req,res)=>{
+geData.post('/getData', (req,res)=>{
     // data=JSON.parse(req.body);
-    console.log(req.body)
-    async function passwdHashGenerate(data){
-        // tmp=await bcrypt.hash(data['password'],saltRounds);
-        // console.log(tmp);
-        // index.db.execute(
-        //     "INSERT INTO student VALUES(?,?,?,?,?)",[data['username'],tmp,data['name'],data['mobile'],data['address']],(err,result)=>{
-        //         if(err){
-        //             res.end("Something bad happened");
-        //         }
-        //         else{
-        //             res.end(result);
-        //         }
-        //     }
-        // ),(err,result)=>{
-        //     console.log(err)
-        // };
+    console.log("Request made by studentID : ",req.body)
+    async function getPrescriptionID(data,callback){
         index.db.connect((err)=>{
             if(err) throw err;
             else{
-                sqlQuery="SELECT * FROM health.student";
-                // values=[data['username'],tmp,data['name'],data['mobile'],data['address']];
-                index.db.query(sqlQuery,(err,result)=>{
+                sqlQuery="SELECT health.prescription.prescriptionID,`name`,dose,`time` FROM\
+                (SELECT prescriptionID,`name`,dose FROM\
+                (SELECT * FROM health.prescription_desc WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=?)) AS tmp\
+                INNER JOIN\
+                health.medicine ON medicine.medicineID=tmp.medicineID) AS tmp2\
+                INNER JOIN\
+                health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;";
+                index.db.query(sqlQuery,[data["id"]],(err,result)=>{
                     if(err) throw(err)
-                    else {
-                        console.log(result)
-                        res.send(result);
+                    else{
+                        return callback(null,result)
                     }
                 })
             }
         })
-        
-        // return tmp;
     }
-    passwdHash=passwdHashGenerate(req.body);
-    
+    // async function getPrescription_desc(data,callback){
+    //     index.db.connect((err)=>{
+    //         if(err) throw err;
+    //         else{
+    //             sqlQuery="SELECT * FROM health.prescription_desc WHERE prescriptionID=?";
+    //             index.db.query(sqlQuery,data,(err,result)=>{
+    //                 if(err) throw(err)
+    //                 else{
+    //                     return callback(null,result)
+    //                 }
+    //             })
+    //         }
+    //     })
+    // }
+    function comp(){
+        getPrescriptionID(req.body,(err,prescriptionID)=>{
+            console.log(prescriptionID)
+            res.send(prescriptionID)
+        })
+        
+    }
+    comp() 
 });
 
-module.exports=login;
+module.exports=geData;

@@ -35,23 +35,21 @@ useEffect(()=>{
     <Table striped bordered hover responsive>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Prescription ID</th>
-          <th>investigation</th>
-          <th>medicine</th>
-          <th>test</th>
+          <th>Medicine Name</th>
+          <th>Dose</th>
+          <th>Time</th>
         </tr>
       </thead>
       <tbody>
         {
           database.map((row)=>{
             return(
-              <tr key={row['studentID']}>
-                <td>{row['studentID']}</td>
-                <td>{row['password']}</td>
+              <tr key={row['prescriptionID']}>
+                <td>{row['prescriptionID']}</td>
                 <td>{row['name']}</td>
-                <td>{row['mobile']}</td>
-                <td>{row['address']}</td>
+                <td>{row['dose']}</td>
+                <td>{row['time']}</td>
               </tr>)
           })
         }
