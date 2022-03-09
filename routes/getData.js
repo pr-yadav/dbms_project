@@ -34,7 +34,7 @@ login.post('/getData', (req,res)=>{
         index.db.connect((err)=>{
             if(err) throw err;
             else{
-                sqlQuery="SELECT * FROM health.student WHERE studentID=1239";
+                sqlQuery="SELECT * FROM health.student";
                 // values=[data['username'],tmp,data['name'],data['mobile'],data['address']];
                 index.db.query(sqlQuery,(err,result)=>{
                     if(err) throw(err)

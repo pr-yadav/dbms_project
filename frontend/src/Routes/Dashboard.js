@@ -1,32 +1,33 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Table } from 'react-bootstrap';
 
-const Dashboard = async ({history}) => {
+const Dashboard = ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
         // console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
-  
-
+    const [database, setDatabase] = useState([])
 
 useEffect(()=>{
+  console.log("lol")
   // fetch Data from the server
+  fetch('http://localhost:12345/getData', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id:1239})
+    }).then(data => {
+      console.log(data.json)
+        return data.json();
+    }).then((res)=> setDatabase(prev => res))
+    .catch((err)=>{
+      console.log(err);
+    })
 },[])
-    async function getData() {
-      return fetch('http://localhost:12345/getData', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({id:123})
-      }).then(data => {
-          return data.json();
-      })
-    }
 
-  const database = await getData()
-  // console.log(database[0])
+  console.log(database)
   
   return(
     <>
@@ -44,18 +45,14 @@ useEffect(()=>{
       <tbody>
         {
           database.map((row)=>{
-            // row=JSON.stringify(row)
-            // console.log(row)
-            // console.log(row['address'])
             return(
-              <tr>
+              <tr key={row['studentID']}>
                 <td>{row['studentID']}</td>
                 <td>{row['password']}</td>
                 <td>{row['name']}</td>
                 <td>{row['mobile']}</td>
                 <td>{row['address']}</td>
-              </tr>
-            )
+              </tr>)
           })
         }
       </tbody>
