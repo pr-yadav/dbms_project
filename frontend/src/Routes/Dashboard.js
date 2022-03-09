@@ -10,14 +10,14 @@ const Dashboard = ({history}) => {
     const [database, setDatabase] = useState([])
 
 useEffect(()=>{
-  console.log("lol")
+  console.log(JSON.parse(sessionStorage.token)["token"])
   // fetch Data from the server
   fetch('http://localhost:12345/getData', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id:1239})
+        body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
     }).then(data => {
       console.log(data.json)
         return data.json();

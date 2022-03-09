@@ -7,7 +7,7 @@ INSERT INTO student VALUES(1,"hbjskd","helo",0123456789,"jdk");
 -- INSERT INTO test(`name`) VALUES("name2");
 -- ALTER TABLE medicine CHANGE medicineID medicineID INT AUTO_INCREMENT;
 -- SELECT MAX(medicineID) FROM medicine;
--- SELECT * FROM test
+-- SELECT * FROM student
 -- DELETE FROM health.test WHERE `name`="name2"
 -- SELECT * FROM test;
 -- SELECT * FROM prescription;

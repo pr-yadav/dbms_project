@@ -28,8 +28,8 @@ const RegisterStudent= ({history}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await registerUser({
-            "username":1239,
-            "password":"asd",
+            username,
+            password,
             "name":"fd",
             "mobile":1234567890,
             "address":"sv"

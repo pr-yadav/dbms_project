@@ -49,7 +49,6 @@ geData.post('/getData', (req,res)=>{
     // }
     function comp(){
         getPrescriptionID(req.body,(err,prescriptionID)=>{
-            console.log(prescriptionID)
             res.send(prescriptionID)
         })
         
