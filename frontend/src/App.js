@@ -33,6 +33,7 @@ function App() {
                 <Switch>
                     {/* <Route path='/' component={Login}/> */}
                     <Route path='/login' component={Login}/>
+                    <Route path='/preferences' component={Preferences}/>
                     <Route path="/studentDashboard" component={StudentDashboard}/>
                     <Route path="/registerStudent" component={RegisterStudent}/>
                     <Route path="/registerDoctor" component={RegisterDoctor}/>
