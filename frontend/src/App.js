@@ -11,6 +11,9 @@ import AddPrescription from './Routes/AddPrescription';
 import UpdateTest from './Routes/UpdateTest';
 import UpdatePharmacy from './Routes/UpdatePharmacy';
 import StudentDashboard from './Routes/StudentDashboard'
+import StaffDashboard from './Routes/StaffDashboard'
+import DoctorDashboard from './Routes/DoctorDashboard'
+import AdminDashboard from './Routes/AdminDashboard'
 
 
 // export function setToken(userToken){
@@ -37,6 +40,9 @@ function App() {
                     <Route path="/addPrescription" component={AddPrescription}/>
                     <Route path="/updateTest" component={UpdateTest}/>
                     <Route path="/updatePharmacy" component={UpdatePharmacy}/>
+                    <Route path="/staffDashboard" component={StaffDashboard}/>
+                    <Route path="/doctorDashboard" component={DoctorDashboard}/>
+                    <Route path="/adminDashboard" component={AdminDashboard}/>
                 </Switch>
             </BrowserRouter>
         </div>

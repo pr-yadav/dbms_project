@@ -23,6 +23,8 @@ const getData2=require('./routes/getData2.js')
 const addPrescription=require('./routes/addPrescription.js')
 const updateTest=require('./routes/updateTest.js')
 const updatePharmacy=require('./routes/updatePharmacy.js')
+const getPharmacy=require('./routes/getPharmacy.js')
+
 
 
 app.use('/',login);
@@ -34,6 +36,8 @@ app.use('/',getData2)
 app.use('/',addPrescription)
 app.use('/',updateTest)
 app.use('/',updatePharmacy)
+app.use('/',getPharmacy)
+
 
 
 // app.use(function (req, res, next) {

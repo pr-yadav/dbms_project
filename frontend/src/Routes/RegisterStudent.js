@@ -9,8 +9,11 @@ const RegisterStudent= ({history}) => {
         console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
 
-    const [username, setUserName] = useState();
+    const [studentID, setStudentID] = useState();
     const [password, setPassword] = useState();
+    const [name, setName] = useState();
+    const [mobile, setMobile] = useState();
+    const [address, setAddress] = useState();
 
     async function registerUser(credentials) {
         return fetch('http://localhost:12345/registerStudent', {
@@ -28,11 +31,11 @@ const RegisterStudent= ({history}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await registerUser({
-            username,
+            studentID,
             password,
-            "name":"fd",
-            "mobile":1234567890,
-            "address":"sv"
+            name,
+            mobile,
+            address
         });
         // setToken(token);
     }
@@ -43,12 +46,24 @@ const RegisterStudent= ({history}) => {
         <h1>Register New Students</h1>
         <form onSubmit={handleSubmit}>
             <label>
-                <p>Username</p>
-                <input type="text" onChange={e => setUserName(e.target.value)}/>
+                <p>StudentID</p>
+                <input type="text" onChange={e => setStudentID(e.target.value)}/>
             </label>
             <label>
                 <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)}/>
+                <input type="text" onChange={e => setPassword(e.target.value)}/>
+            </label>
+            <label>
+                <p>Name</p>
+                <input type="text" onChange={e => setName(e.target.value)}/>
+            </label>
+            <label>
+                <p>Mobile</p>
+                <input type="text" onChange={e => setMobile(e.target.value)}/>
+            </label>
+            <label>
+                <p>Address</p>
+                <input type="text" onChange={e => setAddress(e.target.value)}/>
             </label>
             <div>
                 <Button type="submit">Submit</Button>

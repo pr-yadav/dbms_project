@@ -9,8 +9,11 @@ const RegisterDoctor= ({history}) => {
         console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
 
-    const [username, setUserName] = useState();
+    const [doctorID, setDoctorID] = useState();
     const [password, setPassword] = useState();
+    const [name, setName] = useState();
+    const [mobile, setMobile] = useState();
+    const [dept, setDept] = useState();
 
     async function registerUser(credentials) {
         return fetch('http://localhost:12345/registerDoctor', {
@@ -28,11 +31,11 @@ const RegisterDoctor= ({history}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await registerUser({
-            "username":1239,
-            "password":"asd",
-            "name":"fd",
-            "mobile":1234567890,
-            "department":"sv"
+            doctorID,
+            password,
+            name,
+            mobile,
+            dept
         });
         // setToken(token);
     }
@@ -43,12 +46,24 @@ const RegisterDoctor= ({history}) => {
         <h1>Register New Doctors</h1>
         <form onSubmit={handleSubmit}>
             <label>
-                <p>Username</p>
-                <input type="text" onChange={e => setUserName(e.target.value)}/>
+                <p>DoctorID</p>
+                <input type="text" onChange={e => setDoctorID(e.target.value)}/>
             </label>
             <label>
                 <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)}/>
+                <input type="text" onChange={e => setPassword(e.target.value)}/>
+            </label>
+            <label>
+                <p>Name</p>
+                <input type="text" onChange={e => setName(e.target.value)}/>
+            </label>
+            <label>
+                <p>Mobile</p>
+                <input type="text" onChange={e => setMobile(e.target.value)}/>
+            </label>
+            <label>
+                <p>Department</p>
+                <input type="text" onChange={e => setDept(e.target.value)}/>
             </label>
             <div>
                 <Button type="submit">Submit</Button>

@@ -1,5 +1,5 @@
 USE health;
-SELECT * FROM investigation;
+SELECT * FROM doctor;
 SELECT health.prescription.prescriptionID,`name`,result,`time` FROM
                 (SELECT prescriptionID,`name`,result FROM
                 (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=1239)) AS tmp
@@ -7,6 +7,7 @@ SELECT health.prescription.prescriptionID,`name`,result,`time` FROM
                 health.test ON test.testID=tmp.testID) AS tmp2
                 INNER JOIN
                 health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;
+SELECT medicine.medicineID,`name`,availability FROM health.pharmacy INNER JOIN health.medicine ON medicine.medicineID=pharmacy.medicineID
 -- INSERT INTO pharmacy VALUES(1,0);
 -- INSERT INTO pharmacy VALUES(2,0);
 INSERT INTO student VALUES(1,"hbjskd","helo",0123456789,"jdk");
@@ -33,7 +34,7 @@ SELECT * FROM prescription_desc;
 -- health.medicine ON medicine.medicineID=tmp.medicineID) AS tmp2
 -- INNER JOIN
 -- prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;
-
+SELECT * FROM health.investigation
 CREATE TABLE student(
 	studentID INT,
     `password` VARCHAR(256),

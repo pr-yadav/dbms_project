@@ -8,9 +8,13 @@ const UpdateTest= ({history}) => {
     else{
         console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
+    const [prescriptionID, setPrescriptionID] = useState();
 
-    const [username, setUserName] = useState();
-    const [password, setPassword] = useState();
+    const [testID, setTestID] = useState();
+    const [result, setResult] = useState();
+    const [database, setDatabase] = useState([])
+    const [active1, setActive1] = useState(false);
+
 
     async function updateTest(credentials) {
         return fetch('http://localhost:12345/updateTest', {
@@ -23,14 +27,15 @@ const UpdateTest= ({history}) => {
             return data.json();
         }).then((res)=>{
             console.log(JSON.stringify(res))
+            history.push('/staffDashboard')
         })
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await updateTest({
-            "prescriptionID":33,
-            "testID":2,
-            "result":"Yay! all ur vitals r good",
+            prescriptionID,
+            testID,
+            result
         });
         // setToken(token);
     }
@@ -38,15 +43,19 @@ const UpdateTest= ({history}) => {
 
     return(
       <div className="register-wrapper">
-        <h1>Register New Students</h1>
+        <h1>Update Test Results</h1>
         <form onSubmit={handleSubmit}>
             <label>
-                <p>Username</p>
-                <input type="text" onChange={e => setUserName(e.target.value)}/>
+                <p>PrescriptionID</p>
+                <input type="number" onChange={e => setPrescriptionID(e.target.value)}/>
             </label>
             <label>
-                <p>Password</p>
-                <input type="password" onChange={e => setPassword(e.target.value)}/>
+                <p>TestID</p>
+                <input type="number" onChange={e => setTestID(e.target.value)}/>
+            </label>
+            <label>
+                <p>Result</p>
+                <input type="text" onChange={e => setResult(e.target.value)}/>
             </label>
             <div>
                 <Button type="submit">Submit</Button>

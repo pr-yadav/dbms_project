@@ -19,23 +19,11 @@ login.post('/registerStaff', (req,res)=>{
     async function passwdHashGenerate(data){
         tmp=await bcrypt.hash(data['password'],saltRounds);
         console.log(tmp);
-        // index.db.execute(
-        //     "INSERT INTO student VALUES(?,?,?,?,?)",[data['username'],tmp,data['name'],data['mobile'],data['address']],(err,result)=>{
-        //         if(err){
-        //             res.end("Something bad happened");
-        //         }
-        //         else{
-        //             res.end(result);
-        //         }
-        //     }
-        // ),(err,result)=>{
-        //     console.log(err)
-        // };
         index.db.connect((err)=>{
             if(err) throw err;
             else{
                 sqlQuery="INSERT INTO health.staff VALUES (?);";
-                values=[data['username'],tmp,data['name'],data['mobile'],data['address']];
+                values=[data['staffID'],tmp,data['name'],data['mobile'],data['address']];
                 index.db.query(sqlQuery,[values],(err,result)=>{
                     if(err) throw(err)
                     else console.log(result)
