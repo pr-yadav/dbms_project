@@ -1,0 +1,42 @@
+.show-btn{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+}
+
+.studentDashboard-container h2{
+    text-align: center;
+    margin: 8px 0;
+    border-bottom: 2px solid black;
+}
+
+.show-btn button{
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+.tables-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.tables-container .table_{
+    width: 100%;
+    margin: 0 36px;
+    position: relative;
+}
+
+.tables-container .table_ {
+    height: 83vh;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+    padding: 24px;
+}
+
+.table > thead{
+    position: sticky;
+    top: 0;
+}

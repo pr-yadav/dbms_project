@@ -1,0 +1,10 @@
+.med-test-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.med-test-container>div{
+    width: 100%;
+    margin: 0 16px;
+}

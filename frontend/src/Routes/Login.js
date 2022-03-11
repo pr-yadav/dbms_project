@@ -33,18 +33,18 @@ const Login = ({history}) => {
     }
     return(
         <div className="login-wrapper">
-            <h1>Please Log In</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='form-container'>
+                <h3>Login</h3>
                 <label>
-                    <p>Username</p>
+                    <span>Username</span>
                     <input type="text" onChange={e => setUserName(e.target.value)}/>
                 </label>
                 <label>
-                    <p>Password</p>
+                    <span>Password</span>
                     <input type="password" onChange={e => setPassword(e.target.value)}/>
                 </label>
                 <div>
-                  <Button type="submit">Submit</Button>
+                  <Button className='login-btn' type="submit">Login</Button>
                 </div>
             </form>
         </div>
