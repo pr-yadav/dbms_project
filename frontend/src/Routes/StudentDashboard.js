@@ -57,79 +57,92 @@ const handleShow2 = async () =>{
 }
   
   return(
-    <div className='studentDashboard-container'>
-      <h2>Dashboard</h2>
-      <div className='show-btn'>
-        <Button onClick={()=>handleShow()}>{active1?'Hide':'Show'} Prescription Table</Button>
-        <Button onClick={()=>handleShow2()}>{active2?'Hide':'Show'} Investigation Table</Button>
-      </div>
-      <div className='tables-container'>
-        {
-          active1
-          ?
-          <div className='table_'>
-            <h3>Prescription Table</h3>
-            <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>Prescription ID</th>
-                  <th>Medicine Name</th>
-                  <th>Dose</th>
-                  <th>Time</th>
-                </tr> 
-              </thead>
-              <tbody>
-                {
-                  database.map((row)=>{
-                    return(
-                      <tr key={row['prescriptionID']}>
-                        <td>{row['prescriptionID']}</td>
-                        <td>{row['name']}</td>
-                        <td>{row['dose']}</td>
-                        <td>{row['time']}</td>
-                      </tr>)
-                  })
-                }
-              </tbody>
-            </Table>
+    <>
+      <div className='navbar-container'>
+        <div className='navbar'>
+          <div className='navbar-heading'>
+            <h2>Dashboard</h2>
           </div>
-          :
-          <></>
-        }
-        {
-          active2
-          ?
-          <div className='table_'>
-            <h3>Investigation Table</h3>
-            <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>Prescription ID</th>
-                  <th>Test Name</th>
-                  <th>Result</th>
-                  {/* <th>Time</th> */}
-                </tr> 
-              </thead>
-              <tbody>
-                {
-                  database.map((row)=>{
-                    return(
-                      <tr key={row['prescriptionID']}>
-                        <td>{row['prescriptionID']}</td>
-                        <td>{row['name']}</td>
-                        <td>{row['result']}</td>
-                        {/* <td>{row['time']}</td> */}
-                      </tr>)
-                  })
-                }
-              </tbody>
-            </Table>
+          <div className='navbar-buttons'>
+            <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
+            <Button className='navbar-button' onClick={()=>handleShow2()}>Reset Password</Button>
           </div>
-          :
-          <></>
-        }
+        </div>
+        
       </div>
-  </div>
+      <div className='studentDashboard-container'>
+        <div className='show-btn'>
+          <Button onClick={()=>handleShow()}>{active1?'Hide':'Show'} Prescription Table</Button>
+          <Button onClick={()=>handleShow2()}>{active2?'Hide':'Show'} Investigation Table</Button>
+        </div>
+        <div className='tables-container'>
+          {
+            active1
+            ?
+            <div className='table_'>
+              <h3>Prescription Table</h3>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>Prescription ID</th>
+                    <th>Medicine Name</th>
+                    <th>Dose</th>
+                    <th>Time</th>
+                  </tr> 
+                </thead>
+                <tbody>
+                  {
+                    database.map((row)=>{
+                      return(
+                        <tr key={row['prescriptionID']}>
+                          <td>{row['prescriptionID']}</td>
+                          <td>{row['name']}</td>
+                          <td>{row['dose']}</td>
+                          <td>{row['time']}</td>
+                        </tr>)
+                    })
+                  }
+                </tbody>
+              </Table>
+            </div>
+            :
+            <></>
+          }
+          {
+            active2
+            ?
+            <div className='table_'>
+              <h3>Investigation Table</h3>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>Prescription ID</th>
+                    <th>Test Name</th>
+                    <th>Result</th>
+                    {/* <th>Time</th> */}
+                  </tr> 
+                </thead>
+                <tbody>
+                  {
+                    database.map((row)=>{
+                      return(
+                        <tr key={row['prescriptionID']}>
+                          <td>{row['prescriptionID']}</td>
+                          <td>{row['name']}</td>
+                          <td>{row['result']}</td>
+                          {/* <td>{row['time']}</td> */}
+                        </tr>)
+                    })
+                  }
+                </tbody>
+              </Table>
+            </div>
+            :
+            <></>
+          }
+        </div>
+    </div>
+  </>
   );
 }
 

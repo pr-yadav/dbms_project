@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
-
+import '../assets/css/Register.css'
 
 const RegisterStudent= ({history}) => {
     if(sessionStorage.length===0)
@@ -42,34 +42,49 @@ const RegisterStudent= ({history}) => {
 
 
     return(
-      <div className="register-wrapper">
-        <h1>Register New Students</h1>
-        <form onSubmit={handleSubmit}>
-            <label>
-                <p>StudentID</p>
-                <input type="text" onChange={e => setStudentID(e.target.value)}/>
-            </label>
-            <label>
-                <p>Password</p>
-                <input type="text" onChange={e => setPassword(e.target.value)}/>
-            </label>
-            <label>
-                <p>Name</p>
-                <input type="text" onChange={e => setName(e.target.value)}/>
-            </label>
-            <label>
-                <p>Mobile</p>
-                <input type="text" onChange={e => setMobile(e.target.value)}/>
-            </label>
-            <label>
-                <p>Address</p>
-                <input type="text" onChange={e => setAddress(e.target.value)}/>
-            </label>
-            <div>
-                <Button type="submit">Submit</Button>
+        <>
+            <div className='navbar-container'>
+                <div className='navbar'>
+                    <div className='navbar-heading'>
+                        <h2>Register New Students</h2>
+                    </div>
+                    <div className='navbar-buttons'>
+                        {/* <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
+                        <Button className='navbar-button' onClick={()=>handleShow2()}>Reset Password</Button> */}
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
+            <div className="main-wrapper">
+                <div className="register-wrapper">
+                    <form className='form-container' onSubmit={handleSubmit}>
+                        <label>
+                            <span>StudentID</span>
+                            <input type="text" onChange={e => setStudentID(e.target.value)}/>
+                        </label>
+                        <label>
+                            <span>Password</span>
+                            <input type="text" onChange={e => setPassword(e.target.value)}/>
+                        </label>
+                        <label>
+                            <span>Name</span>
+                            <input type="text" onChange={e => setName(e.target.value)}/>
+                        </label>
+                        <label>
+                            <span>Mobile</span>
+                            <input type="text" onChange={e => setMobile(e.target.value)}/>
+                        </label>
+                        <label>
+                            <span>Address</span>
+                            <input type="text" onChange={e => setAddress(e.target.value)}/>
+                        </label>
+                        <div>
+                            <Button className='set-btn' type="submit">Submit</Button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </>
+      
     );
 }
 

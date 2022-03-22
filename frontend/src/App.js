@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Dashboard from './Routes/Dashboard';
-import Preferences from './Routes/Prefernces';
 import Login from './Routes/Login';
 import RegisterStudent from './Routes/RegisterStudent';
 import RegisterDoctor from './Routes/RegisterDoctor';
@@ -32,7 +31,6 @@ function App() {
                 <Switch>
                     {/* <Route path='/' component={Login}/> */}
                     <Route path='/login' component={Login}/>
-                    <Route path='/preferences' component={Preferences}/>
                     <Route path="/studentDashboard" component={StudentDashboard}/>
                     <Route path="/registerStudent" component={RegisterStudent}/>
                     <Route path="/registerDoctor" component={RegisterDoctor}/>

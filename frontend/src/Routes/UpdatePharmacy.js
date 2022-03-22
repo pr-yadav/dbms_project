@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
-
+import '../assets/css/UpdatePharmacy.css'
 
 const UpdatePharmacy= ({history}) => {
     if(sessionStorage.length===0)
@@ -12,7 +12,7 @@ const UpdatePharmacy= ({history}) => {
     const [medicineID, setMedicineID] = useState();
     const [availability, setAvailability] = useState();
     const [database, setDatabase] = useState([])
-    const [active1, setActive1] = useState(true);
+    const [active1, setActive1] = useState(false);
 
     async function updatePharmacy(credentials) {
         return fetch('http://localhost:12345/updatePharmacy', {
@@ -51,55 +51,75 @@ const UpdatePharmacy= ({history}) => {
           .catch((err)=>{
             console.log(err);
           })
-        //   setActive1(prev => !prev);
+          setActive1(true);
       }
 
 
     return(
-      <div className="register-wrapper">
-        <h1>Update Pharmacy</h1>
-        <Button onClick={()=>handleShow()}>{active1?'Referesh':'Show'} Current availability of Medicines</Button>
-        {
-        active1
-        ?
-        <Table striped bordered hover responsive>
-            <thead>
-            <tr>
-                <th>Medicine ID</th>
-                <th>Medicine Name</th>
-                <th>Availability</th>
-            </tr> 
-            </thead>
-            <tbody>
-            {
-                database.map((row)=>{
-                return(
-                    <tr key={row['medicineID']}>
-                    <td>{row['medicineID']}</td>
-                    <td>{row['name']}</td>
-                    <td>{row['availability']}</td>
-                    </tr>)
-                })
-            }
-            </tbody>
-        </Table>
-        :
-        <></>
-        }
-        <form onSubmit={handleSubmit}>
-            <label>
-                <p>MedicineID</p>
-                <input type="number" onChange={e => setMedicineID(e.target.value)}/>
-            </label>
-            <label>
-                <p>Availability</p>
-                <input type="number" onChange={e => setAvailability(e.target.value)}/>
-            </label>
-            <div>
-                <Button type="submit">Submit</Button>
+        <>
+            <div className='navbar-container'>
+                <div className='navbar'>
+                    <div className='navbar-heading'>
+                        <h2>Update Pharmacy</h2>
+                    </div>
+                    <div className='navbar-buttons'>
+                        {/* <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
+                        <Button className='navbar-button' onClick={()=>handleShow2()}>Reset Password</Button> */}
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
+        <div className="main-wrapper">
+            <div className='show-btn'>
+                <Button onClick={()=>handleShow()}>{active1?'Referesh':'Show'} Current availability of Medicines</Button>
+            </div>
+            <div className='tables-container'>
+                {
+                active1
+                ?
+                <div className='table_'>
+                    <Table striped bordered hover responsive>
+                        <thead>
+                        <tr>
+                            <th>Medicine ID</th>
+                            <th>Medicine Name</th>
+                            <th>Availability</th>
+                        </tr> 
+                        </thead>
+                        <tbody>
+                        {
+                            database.map((row)=>{
+                            return(
+                                <tr key={row['medicineID']}>
+                                <td>{row['medicineID']}</td>
+                                <td>{row['name']}</td>
+                                <td>{row['availability']}</td>
+                                </tr>)
+                            })
+                        }
+                        </tbody>
+                    </Table>
+                </div>
+                :
+                <></>
+                }
+            </div>
+            <div className="login-wrapper">
+                <form className='form-container' onSubmit={handleSubmit}>
+                    <label>
+                        <span>MedicineID</span>
+                        <input type="number" onChange={e => setMedicineID(e.target.value)}/>
+                    </label>
+                    <label>
+                        <span>Availability</span>
+                        <input type="number" onChange={e => setAvailability(e.target.value)}/>
+                    </label>
+                    <div>
+                        <Button className='set-btn' type="submit">Submit</Button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </>
     );
 }
 
