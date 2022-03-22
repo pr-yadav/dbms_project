@@ -29,7 +29,6 @@ function App() {
         <div className="wrapper">
             <BrowserRouter>
                 <Switch>
-                    {/* <Route path='/' component={Login}/> */}
                     <Route path='/login' component={Login}/>
                     <Route path="/studentDashboard" component={StudentDashboard}/>
                     <Route path="/registerStudent" component={RegisterStudent}/>
@@ -41,6 +40,7 @@ function App() {
                     <Route path="/staffDashboard" component={StaffDashboard}/>
                     <Route path="/doctorDashboard" component={DoctorDashboard}/>
                     <Route path="/adminDashboard" component={AdminDashboard}/>
+                    <Route path='*' component={Login}/>
                 </Switch>
             </BrowserRouter>
         </div>

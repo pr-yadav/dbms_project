@@ -5,7 +5,7 @@ const path=require('path');
 const bodyParser=require('body-parser');
 const cors = require('cors');
 const bcrypt=require('bcrypt')
-
+const jwt=require('jsonwebtoken')
 login.use(cors());
 
 login.use(bodyParser.json());
@@ -18,6 +18,8 @@ login.post('/login', (req,res)=>{
         else{
             var s = JSON.stringify(data["username"]);
             var d = JSON.parse(s);
+            var typeS = JSON.stringify(data["userType"]);
+            var typeD = JSON.parse(typeS);
             sqlQuery="SELECT password FROM health.student WHERE studentID=?"
             index.db.query(sqlQuery,[parseInt(d)],(err,result)=>{
                 if(err){
@@ -29,12 +31,17 @@ login.post('/login', (req,res)=>{
                 else{
                     
                     if(bcrypt.compareSync(data["password"],result[0]["password"])){
+                        const token = jwt.sign(
+                            { userID:d, userType:typeD },
+                            "hello",
+                            {
+                              expiresIn: "1h",
+                            }
+                        );
                         res.send({
-                            token:d
+                            token:token
                         });
-                        console.log(parseInt(d))
                     }
-                    console.log(typeof parseInt(d))
                 }
             })
         }

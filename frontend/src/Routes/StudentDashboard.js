@@ -24,7 +24,7 @@ const handleShow = async () =>{
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
+        body: JSON.stringify({token:JSON.parse(sessionStorage.token)["token"]})
     }).then(data => {
       console.log(data.json)
         return data.json();
