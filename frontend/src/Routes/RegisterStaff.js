@@ -25,12 +25,18 @@ const RegisterStaff= ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            console.log(JSON.stringify(res))
+            if(res["status"]==200){
+                alert("New Staff Registered!")
+            }
+            else{
+                alert(res["data"])
+            }
         })
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await registerUser({
+            token:JSON.parse(sessionStorage.token),
             staffID,
             password,
             name,

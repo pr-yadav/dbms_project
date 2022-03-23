@@ -1,5 +1,9 @@
 USE health;
 SELECT * FROM doctor;
+select * FROM medicine;
+SELECT * FROM test;
+SELECT * FROM prescription_desc;
+select * from investigation;
 SELECT health.prescription.prescriptionID,`name`,result,`time` FROM
                 (SELECT prescriptionID,`name`,result FROM
                 (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=1239)) AS tmp

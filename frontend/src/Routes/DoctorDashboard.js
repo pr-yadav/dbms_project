@@ -30,7 +30,7 @@ const handleShow = async () =>{
             'Content-Type': 'application/json',
         },
         // body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
-        body:JSON.stringify({id:userName})
+        body:JSON.stringify({token:JSON.parse(sessionStorage.token)["token"]})
     }).then(data => {
       console.log(data.json)
         return data.json();

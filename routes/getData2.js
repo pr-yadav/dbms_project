@@ -4,7 +4,7 @@ const index=require('../index');
 const bodyParser=require('body-parser');
 const cors = require('cors');
 const { resolve } = require('path');
-
+const jwt=require('jsonwebtoken')
 geData.use(cors());
 
 geData.use(bodyParser.json());
@@ -15,33 +15,52 @@ geData.post('/getData2', (req,res)=>{
     async function getPrescriptionID(data,callback){
         try{
             const decoded = jwt.verify(data["token"], "hello");
-            index.db.connect((err)=>{
-                if(err) throw err;
-                else{
-                    sqlQuery="SELECT health.prescription.prescriptionID,`name`,result,`time` FROM\
-                    (SELECT prescriptionID,`name`,result FROM\
-                    (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=?)) AS tmp\
-                    INNER JOIN\
-                    health.test ON test.testID=tmp.testID) AS tmp2\
-                    INNER JOIN\
-                    health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;";
-                    index.db.query(sqlQuery,[decoded["userID"]],(err,result)=>{
-                        if(err) throw(err)
-                        else{
-                            return callback(null,result)
-                        }
-                    })
-                }
-            })
+            if(decoded["userType"]>1){
+                console.log("Admin/Staff tried to see medicl history")
+                res.status(403)
+                res.send({
+                status:403,
+                data:"Only student and doctor allowed to see history"
+                })
+            }
+            else{
+                index.db.connect((err)=>{
+                    if(err) throw err;
+                    else{
+                        sqlQuery="SELECT health.prescription.prescriptionID,`name`,result,`time` FROM\
+                        (SELECT prescriptionID,`name`,result FROM\
+                        (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=?)) AS tmp\
+                        INNER JOIN\
+                        health.test ON test.testID=tmp.testID) AS tmp2\
+                        INNER JOIN\
+                        health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;";
+                        index.db.query(sqlQuery,[decoded["userID"]],(err,result)=>{
+                            if(err) throw(err)
+                            else{
+                                return callback(null,result)
+                            }
+                        })
+                    }
+                })
+            }
         }
         catch(error){
-            res.send("Forbidden")
+            console.log("Someone tried to hack!!")
+            res.status(403)
+            res.send({
+                status:403,
+                token:"Forbidden"
+            })
         }
         
     }
     function comp(){
         getPrescriptionID(req.body,(err,prescriptionID)=>{
-            res.send(prescriptionID)
+            console.log(prescriptionID)
+            res.send({
+                status:200,
+                data:prescriptionID
+            })
         })
         
     }

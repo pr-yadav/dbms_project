@@ -24,7 +24,7 @@ const addPrescription=require('./routes/addPrescription.js')
 const updateTest=require('./routes/updateTest.js')
 const updatePharmacy=require('./routes/updatePharmacy.js')
 const getPharmacy=require('./routes/getPharmacy.js')
-
+const resetPassword=require('./routes/resetPassword.js')
 
 
 app.use('/',login);
@@ -37,7 +37,7 @@ app.use('/',addPrescription)
 app.use('/',updateTest)
 app.use('/',updatePharmacy)
 app.use('/',getPharmacy)
-
+app.use('/',resetPassword)
 
 
 // app.use(function (req, res, next) {

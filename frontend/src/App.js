@@ -13,7 +13,7 @@ import StudentDashboard from './Routes/StudentDashboard'
 import StaffDashboard from './Routes/StaffDashboard'
 import DoctorDashboard from './Routes/DoctorDashboard'
 import AdminDashboard from './Routes/AdminDashboard'
-
+import ResetPassword from './Routes/ResetPassword'
 
 // export function setToken(userToken){
 //     sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -40,6 +40,7 @@ function App() {
                     <Route path="/staffDashboard" component={StaffDashboard}/>
                     <Route path="/doctorDashboard" component={DoctorDashboard}/>
                     <Route path="/adminDashboard" component={AdminDashboard}/>
+                    <Route path="/resetPassword" component={ResetPassword}/>
                     <Route path='*' component={Login}/>
                 </Switch>
             </BrowserRouter>

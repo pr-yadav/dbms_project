@@ -34,6 +34,13 @@
 .navbar-button{
     margin-right: 10px;
 }
+.navbar-button-logout{
+    background-color: red;
+    margin-right: 10px;
+}
+.navbar-button-logout:hover {
+    background-color: #ff00009d; /* Green */
+  }
 .tables-container{
     display: flex;
     flex-direction: row;

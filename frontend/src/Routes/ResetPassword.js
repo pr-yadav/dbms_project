@@ -3,20 +3,18 @@ import { Table,Button } from 'react-bootstrap';
 import '../assets/css/Register.css'
 
 
-const RegisterDoctor= ({history}) => {
+const ResetPassword= ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
+        console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
 
-    const [doctorID, setDoctorID] = useState();
     const [password, setPassword] = useState();
-    const [name, setName] = useState();
-    const [mobile, setMobile] = useState();
-    const [dept, setDept] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
 
-    async function registerUser(credentials) {
-        return fetch('http://localhost:12345/registerDoctor', {
+    async function reset(credentials) {
+        return fetch('http://localhost:12345/resetPassword', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,24 +24,26 @@ const RegisterDoctor= ({history}) => {
             return data.json();
         }).then((res)=>{
             if(res["status"]==200){
-                alert("New Doctor Registered!")
+                alert("Password Reset!")
+                history.push('/login')
             }
             else{
-                alert(res["data"])
+                alert(res["token"])
+                history.push('/login')
             }
         })
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await registerUser({
-            token:JSON.parse(sessionStorage.token),
-            doctorID,
-            password,
-            name,
-            mobile,
-            dept
-        });
-        // setToken(token);
+        if(password!=confirmPassword){
+            alert("Passords don't match")
+        }
+        else{
+            const token = await reset({
+                token:JSON.parse(sessionStorage.token),
+                password,
+            });
+        }
     }
 
 
@@ -52,7 +52,7 @@ const RegisterDoctor= ({history}) => {
             <div className='navbar-container'>
                 <div className='navbar'>
                     <div className='navbar-heading'>
-                        <h2>Register New Doctor</h2>
+                        <h2>Reset Password</h2>
                     </div>
                     <div className='navbar-buttons'>
                         {/* <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
@@ -64,24 +64,12 @@ const RegisterDoctor= ({history}) => {
                 <div className="register-wrapper">
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
-                            <span>DoctorID</span>
-                            <input type="text" onChange={e => setDoctorID(e.target.value)}/>
-                        </label>
-                        <label>
                             <span>Password</span>
                             <input type="text" onChange={e => setPassword(e.target.value)}/>
                         </label>
                         <label>
-                            <span>Name</span>
-                            <input type="text" onChange={e => setName(e.target.value)}/>
-                        </label>
-                        <label>
-                            <span>Mobile</span>
-                            <input type="text" onChange={e => setMobile(e.target.value)}/>
-                        </label>
-                        <label>
-                            <span>Department</span>
-                            <input type="text" onChange={e => setDept(e.target.value)}/>
+                            <span>Confirm Password</span>
+                            <input type="text" onChange={e => setConfirmPassword(e.target.value)}/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>
@@ -93,4 +81,4 @@ const RegisterDoctor= ({history}) => {
     );
 }
 
-export default RegisterDoctor;
+export default ResetPassword;

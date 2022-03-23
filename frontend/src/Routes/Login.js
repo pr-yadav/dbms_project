@@ -3,7 +3,7 @@ import '../assets/css/Login.css';
 import { Button } from 'react-bootstrap';
 
 const Login = ({history}) => {
-
+    sessionStorage.clear()
     async function loginUser(credentials) {
         return fetch('http://localhost:12345/login', {
             method: 'POST',
@@ -14,16 +14,20 @@ const Login = ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            console.log(JSON.stringify(res))
-            sessionStorage.setItem('token', JSON.stringify(res))
-            if(userType=='0')
-                history.push('/studentDashboard')
-            else if(userType=='1')
-                history.push('/doctorDashboard')
-            else if(userType=='2')
-                history.push('/staffDashboard')
-            else
-                history.push('/adminDashboard')
+            if(res["status"]==200){
+                sessionStorage.setItem('token', JSON.stringify(res["token"]))
+                if(userType=='0')
+                    history.push('/studentDashboard')
+                else if(userType=='1')
+                    history.push('/doctorDashboard')
+                else if(userType=='2')
+                    history.push('/staffDashboard')
+                else
+                    history.push('/adminDashboard')
+            }
+            else{
+                alert(res["status"] + " : " + res["token"])
+            }
         })
     }
     const [username, setUserName] = useState();
@@ -32,7 +36,6 @@ const Login = ({history}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(userType)
         const token = await loginUser({
             username,
             password,
