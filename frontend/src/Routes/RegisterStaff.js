@@ -14,6 +14,7 @@ const RegisterStaff= ({history}) => {
     const [name, setName] = useState();
     const [mobile, setMobile] = useState();
     const [address, setAddress] = useState();
+    const [department, setDepartment] = useState();
 
     async function registerUser(credentials) {
         return fetch('http://localhost:12345/registerStaff', {
@@ -41,7 +42,8 @@ const RegisterStaff= ({history}) => {
             password,
             name,
             mobile,
-            address
+            address,
+            department
         });
         // setToken(token);
     }
@@ -82,6 +84,10 @@ const RegisterStaff= ({history}) => {
                         <label>
                             <span>Address</span>
                             <input type="text" onChange={e => setAddress(e.target.value)}/>
+                        </label>
+                        <label>
+                            <span>Department</span>
+                            <input type="text" onChange={e => setDepartment(e.target.value)}/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>

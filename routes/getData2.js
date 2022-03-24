@@ -23,7 +23,7 @@ geData.post('/getData2', (req,res)=>{
                 data:"Only student and doctor allowed to see history"
                 })
             }
-            else{
+            else if(decoded["userType"]==0){
                 index.db.connect((err)=>{
                     if(err) throw err;
                     else{
@@ -43,13 +43,33 @@ geData.post('/getData2', (req,res)=>{
                     }
                 })
             }
+            else{
+                index.db.connect((err)=>{
+                    if(err) throw err;
+                    else{
+                        sqlQuery="SELECT health.prescription.prescriptionID,`name`,result,`time` FROM\
+                        (SELECT prescriptionID,`name`,result FROM\
+                        (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=?)) AS tmp\
+                        INNER JOIN\
+                        health.test ON test.testID=tmp.testID) AS tmp2\
+                        INNER JOIN\
+                        health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;";
+                        index.db.query(sqlQuery,[data["studentID"]],(err,result)=>{
+                            if(err) throw(err)
+                            else{
+                                return callback(null,result)
+                            }
+                        })
+                    }
+                })
+            }
         }
         catch(error){
             console.log("Someone tried to hack!!")
             res.status(403)
             res.send({
                 status:403,
-                token:"Forbidden"
+                data:"Forbidden"
             })
         }
         

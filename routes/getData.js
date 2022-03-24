@@ -11,7 +11,7 @@ geData.use(bodyParser.json());
 geData.use(bodyParser.urlencoded({extended:false}));
 
 geData.post('/getData', (req,res)=>{
-    console.log("Request made by studentID : ",req.body)
+    console.log("Request made by jwt : ",req.body)
     async function getPrescriptionID(data,callback){
         try{
             const decoded = jwt.verify(data["token"], "hello");
@@ -21,6 +21,26 @@ geData.post('/getData', (req,res)=>{
                 res.send({
                 status:403,
                 data:"Only student and doctor allowed to see history"
+                })
+            }
+            else if(decoded["userType"]==0){
+                index.db.connect((err)=>{
+                    if(err) throw err;
+                    else{
+                        sqlQuery="SELECT health.prescription.prescriptionID,`name`,dose,`time` FROM\
+                        (SELECT prescriptionID,`name`,dose FROM\
+                        (SELECT * FROM health.prescription_desc WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=?)) AS tmp\
+                        INNER JOIN\
+                        health.medicine ON medicine.medicineID=tmp.medicineID) AS tmp2\
+                        INNER JOIN\
+                        health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;";
+                        index.db.query(sqlQuery,[decoded["userID"]],(err,result)=>{
+                            if(err) throw(err)
+                            else{
+                                return callback(null,result)
+                            }
+                        })
+                    }
                 })
             }
             else{
@@ -34,7 +54,7 @@ geData.post('/getData', (req,res)=>{
                         health.medicine ON medicine.medicineID=tmp.medicineID) AS tmp2\
                         INNER JOIN\
                         health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;";
-                        index.db.query(sqlQuery,[decoded["userID"]],(err,result)=>{
+                        index.db.query(sqlQuery,[data["studentID"]],(err,result)=>{
                             if(err) throw(err)
                             else{
                                 return callback(null,result)

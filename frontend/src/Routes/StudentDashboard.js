@@ -34,7 +34,7 @@ const handleShow = async () =>{
         setDatabase(prev => res["data"])
       }
       else{
-        alert(res["token"])
+        alert(res["data"])
         history.push('/login')
       }
     })
@@ -59,7 +59,7 @@ const handleShow2 = async () =>{
       }
       else{
         sessionStorage.clear()
-        alert(res["token"])
+        alert(res["data"])
         history.push('/login')
       }
     })
@@ -67,6 +67,32 @@ const handleShow2 = async () =>{
       console.log(err);
     })
     setActive2(prev => !prev);
+}
+const personalData = async () =>{
+  fetch('http://localhost:12345/getData3', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({token:JSON.parse(sessionStorage.token)})
+    }).then(data => {
+        return data.json();
+    }).then((res)=> {
+      if(res["status"]==200){
+        alert("StudentID : "+res["data"][0]["studentID"]+
+              "\nName : "+res["data"][0]["name"]+
+              "\nMobile : "+res["data"][0]["mobile"]+
+              "\nAddress : "+res["data"][0]["address"])
+      }
+      else{
+        sessionStorage.clear()
+        alert(res["data"])
+        history.push('/login')
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
 }
 
 const logout=(e)=>{
@@ -85,7 +111,7 @@ const resetPassword=(e)=>{
             <h2>Dashboard</h2>
           </div>
           <div className='navbar-buttons'>
-            <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
+            <Button className='navbar-button' onClick={()=>personalData()}>See Personal Data</Button>
             <Button className='navbar-button' onClick={()=>resetPassword()}>Reset Password</Button>
             <Button className='navbar-button-logout' onClick={()=>logout()}>Logout</Button>
           </div>

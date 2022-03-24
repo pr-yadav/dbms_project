@@ -38,7 +38,7 @@ registerStaff.post('/registerStaff', (req,res)=>{
                 }
                 else{
                     sqlQuery="INSERT INTO health.staff VALUES (?);";
-                    values=[data['staffID'],tmp,data['name'],data['mobile'],data['address']];
+                    values=[data['staffID'],tmp,data['name'],data['mobile'],data['address'],data["department"]];
                     index.db.query(sqlQuery,[values],(err,result)=>{
                         if(err){
                             if(err["code"]=="ER_DUP_ENTRY"){
