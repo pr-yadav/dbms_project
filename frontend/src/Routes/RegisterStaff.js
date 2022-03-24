@@ -47,6 +47,13 @@ const RegisterStaff= ({history}) => {
         });
         // setToken(token);
     }
+    const logout=(e)=>{
+        sessionStorage.clear()
+        history.push('/login')
+    }
+    const back=(e)=>{
+        history.push('/adminDashboard')
+    }
 
 
     return(
@@ -54,11 +61,11 @@ const RegisterStaff= ({history}) => {
             <div className='navbar-container'>
                 <div className='navbar'>
                     <div className='navbar-heading'>
-                        <h2>Register New Staff</h2>
+                        <h2>Update Pharmacy</h2>
                     </div>
                     <div className='navbar-buttons'>
-                        {/* <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
-                        <Button className='navbar-button' onClick={()=>handleShow2()}>Reset Password</Button> */}
+                        <Button className='navbar-button' onClick={()=>back()}>Back to Dashboard</Button>
+                        <Button className='navbar-button-logout' onClick={()=>logout()}>Logout</Button>
                     </div>
                 </div>
             </div>

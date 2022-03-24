@@ -26,6 +26,11 @@ const updatePharmacy=require('./routes/updatePharmacy.js')
 const getPharmacy=require('./routes/getPharmacy.js')
 const resetPassword=require('./routes/resetPassword.js')
 const getData3=require('./routes/getData3.js')
+const addMedicine=require('./routes/addMedicine.js')
+const resetPasswordAdmin=require('./routes/resetPasswordAdmin.js')
+const resetPersonalDetailsDoctor=require('./routes/resetPersonalDetailsDoctor.js')
+const resetPersonalDetailsStudent=require('./routes/resetPersonalDetailsStudent.js')
+const resetPersonalDetailsStaff=require('./routes/resetPersonalDetailsStaff.js')
 
 app.use('/',login);
 app.use('/',registerStudent)
@@ -39,7 +44,11 @@ app.use('/',updatePharmacy)
 app.use('/',getPharmacy)
 app.use('/',resetPassword)
 app.use('/',getData3)
-
+app.use('/',addMedicine)
+app.use('/',resetPasswordAdmin)
+app.use('/',resetPersonalDetailsStudent)
+app.use('/',resetPersonalDetailsDoctor)
+app.use('/',resetPersonalDetailsStaff)
 
 // app.use(function (req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/dashboard');

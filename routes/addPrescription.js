@@ -7,96 +7,108 @@ const cors = require('cors');
 const bcrypt=require('bcrypt');
 const saltRounds=1;
 const mysql=require('mysql2')
-
+const jwt=require('jsonwebtoken')
+ 
 addPrescription.use(cors());
 
 addPrescription.use(bodyParser.json());
 addPrescription.use(bodyParser.urlencoded({extended:false}));
-
+errc=1
 addPrescription.post('/addPrescription', (req,res)=>{
-    // data=JSON.parse(req.body);
     data=req.body
-    console.log(data)
     async function add(data){
-        index.db.connect((err)=>{
-            if(err) throw err;
+        try{
+            const decoded = jwt.verify(data["token"], "hello");
+            if(decoded["userType"]!=1){
+                errc=0
+                console.log("Student/Admin/Staff tried to add prescription")
+                res.status(403)
+                res.send({
+                    status:403,
+                    data:"Only Doctor allowed to add prescription"
+                })
+            }
             else{
-                sqlQuery="INSERT INTO health.prescription(studentID,doctorID) VALUES(?)";
-                values=[data["studentID"],data["doctorID"]]
-                index.db.query(sqlQuery,[values],(err,result)=>{
-                    if(err) throw(err)
-                    else {
-                        prescriptionID=result.insertId
-                        console.log(prescriptionID)
-                        // sqlQuery="SELECT MAX(prescriptionID) FROM health.prescription";
-                        // // values=[data['username'],tmp,data['name'],data['mobile'],data['address']];
-                        // index.db.query(sqlQuery,(err,result)=>{
-                        //     if(err) throw(err)
-                        //     else {
-                        //         prescriptionID=result
-                        //     }
-                        // })
-                        // prescriptionID=prescriptionID['MAX(prescriptionID)']
-                        // console.log(typeof(prescriptionID))
-                        // console.log(data["medicine"])
-                        // console.log(data["medicine"])
-                        for (medicine in data["prescription_desc"]){
-                            dose=data["prescription_desc"][medicine]["dose"]
-                            sqlQuery1="SELECT medicineID from health.medicine where `name`=?"
-                            values=[data["prescription_desc"][medicine]["medicineID"]]
-                            index.db.query(sqlQuery1,[values],(err,result)=>{
-                                if(err) throw(err)
-                                else {
-                                    i=0
-                                    id=result[0]["medicineID"]
-                                    console.log(id,dose)
+                index.db.connect((err)=>{
+                    if(err){
+                        errc=0
+                        console.log(err)
+                        res.status(500)
+                        res.send({
+                            status:500,
+                            data:"Internal Server Error"
+                        })
+                    }
+                    else{
+                        sqlQuery="INSERT INTO health.prescription(studentID,doctorID) VALUES(?)";
+                        values=[data["studentID"],data["doctorID"]]
+                        index.db.query(sqlQuery,[values],(err,result)=>{
+                            prescriptionID=result.insertId
+                            if(err){
+                                errc=0
+                                console.log(err)
+                                res.status(404)
+                                res.send({
+                                    status:404,
+                                    data:"Use correct studentID and doctorID"
+                                })
+                            }
+                            else {
+                                for (medicine in data["prescription_desc"]){
+                                    dose=data["prescription_desc"][medicine]["dose"]
+                                    medicineID=data["prescription_desc"][medicine]["medicineID"]
                                     sqlQuery2="INSERT INTO health.prescription_desc(prescriptionID,medicineID,dose) VALUES(?)";
-                                    // values=[data['username'],tmp,data['name'],data['mobile'],data['address']];
-                                    values=[prescriptionID,id,dose]
+                                    values=[prescriptionID,medicineID,dose]
                                     index.db.query(sqlQuery2,[values],(err,result)=>{
-                                        if(err) throw(err)
-                                        else {
-                                            // console.log(result)
+                                        if(err && errc){
+                                            errc=0
+                                            console.log(err)
+                                            res.status(404)
+                                            res.send({
+                                                status:404,
+                                                data:"Use correct medicineID"
+                                            })
                                         }
                                     })
                                 }
-                            })
-                        }
 
-                        for (test in data["investigation"]){
-                            sqlQuery1="SELECT testID from health.test where `name`=?"
-                            values=[data["investigation"][test]["testID"]]
-                            console.log(values)
-                            index.db.query(sqlQuery1,[values],(err,result)=>{
-                                if(err) throw(err)
-                                else {
-                                    i=0
-                                    while(i<1000000)
-                                        i+=1
-                                    console.log(result)
-                                    id=result[0]["testID"]
-                                    console.log(id)
+                                for (test in data["investigation"]){
                                     sqlQuery2="INSERT INTO health.investigation VALUES(?)";
-                                    // values=[data['username'],tmp,data['name'],data['mobile'],data['address']];
-                                    values=[prescriptionID,id,""]
+                                    values=[prescriptionID,data["investigation"][test]["testID"],""]
                                     index.db.query(sqlQuery2,[values],(err,result)=>{
-                                        if(err) throw(err)
-                                        else {
-                                            // console.log(result)
+                                        if(err && errc){
+                                            errc=0
+                                            console.log(err)
+                                            res.status(404)
+                                            res.send({
+                                                status:404,
+                                                data:"Use correct testID"
+                                            })
                                         }
                                     })
                                 }
-                            })
-                        }
+                            }
+                            if(errc){
+                                res.send({
+                                    status:200
+                                });
+                                console.log("New Prescription added with ID : "+prescriptionID)
+                            }
+                        })
+                        
                     }
                 })
-                
-                
-                res.send("ok")
             }
-        })
-        
-        // return tmp;
+        }
+        catch(err){
+            console.log(err)
+            console.log("Someone tried to hack!!")
+            res.status(403)
+            res.send({
+                status:403,
+                data:"JWT tampered"
+            })
+        }
     }
     passwdHash=add(req.body);
     

@@ -24,12 +24,18 @@ const UpdatePharmacy= ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            console.log(JSON.stringify(res))
+            if(res["status"]==200){
+                alert("Medicne Availability updated!")
+            }
+            else{
+                alert(res["data"])
+            }
         })
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = await updatePharmacy({
+            token:JSON.parse(sessionStorage.token),
             medicineID,
             availability
         });
@@ -41,7 +47,7 @@ const UpdatePharmacy= ({history}) => {
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
+              body: JSON.stringify({id:JSON.parse(sessionStorage.token)})
           }).then(data => {
             console.log(data.json)
               return data.json();
@@ -53,7 +59,13 @@ const UpdatePharmacy= ({history}) => {
           })
           setActive1(true);
       }
-
+      const logout=(e)=>{
+        sessionStorage.clear()
+        history.push('/login')
+      }
+      const back=(e)=>{
+          history.push('/staffDashboard')
+      }
 
     return(
         <>
@@ -63,8 +75,8 @@ const UpdatePharmacy= ({history}) => {
                         <h2>Update Pharmacy</h2>
                     </div>
                     <div className='navbar-buttons'>
-                        {/* <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
-                        <Button className='navbar-button' onClick={()=>handleShow2()}>Reset Password</Button> */}
+                        <Button className='navbar-button' onClick={()=>back()}>Back to Dashboard</Button>
+                        <Button className='navbar-button-logout' onClick={()=>logout()}>Logout</Button>
                     </div>
                 </div>
             </div>

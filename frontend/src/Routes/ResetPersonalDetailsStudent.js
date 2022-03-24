@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
-import '../assets/css/UpdateTest.css'
+import '../assets/css/Register.css'
+import ResetPersonalDetailsDoctor from './ResetPersonalDetailsDoctor';
 
-const UpdateTest= ({history}) => {
+const ResetPersonalDetailsStudent= ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
         console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
-    const [prescriptionID, setPrescriptionID] = useState();
 
-    const [testID, setTestID] = useState();
-    const [result, setResult] = useState();
-    const [database, setDatabase] = useState([])
-    const [active1, setActive1] = useState(false);
+    const [studentID, setStudentID] = useState();
+    const [password, setPassword] = useState();
+    const [name, setName] = useState();
+    const [mobile, setMobile] = useState();
+    const [address, setAddress] = useState();
 
-
-    async function updateTest(credentials) {
-        return fetch('http://localhost:12345/updateTest', {
+    async function registerUser(credentials) {
+        return fetch('http://localhost:12345/resetPersonalDetailsStudent', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const UpdateTest= ({history}) => {
             return data.json();
         }).then((res)=>{
             if(res["status"]==200){
-                alert("Test Result Updated!")
+                alert("Updated!")
             }
             else{
                 alert(res["data"])
@@ -36,28 +36,29 @@ const UpdateTest= ({history}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await updateTest({
+        const token = await registerUser({
             token:JSON.parse(sessionStorage.token),
-            prescriptionID,
-            testID,
-            result
+            studentID,
+            name,
+            mobile,
+            address
         });
         // setToken(token);
     }
     const logout=(e)=>{
         sessionStorage.clear()
         history.push('/login')
-      }
-      const back=(e)=>{
-          history.push('/staffDashboard')
-      }
+    }
+    const back=(e)=>{
+        history.push('/adminDashboard')
+    }
 
     return(
         <>
             <div className='navbar-container'>
                 <div className='navbar'>
                     <div className='navbar-heading'>
-                        <h2>Update Test Results</h2>
+                        <h2>Update Personal Details</h2>
                     </div>
                     <div className='navbar-buttons'>
                         <Button className='navbar-button' onClick={()=>back()}>Back to Dashboard</Button>
@@ -66,19 +67,27 @@ const UpdateTest= ({history}) => {
                 </div>
             </div>
             <div className="main-wrapper">
-                <div className="login-wrapper">
+                <div className="register-wrapper">
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
-                            <span>PrescriptionID</span>
-                            <input type="number" onChange={e => setPrescriptionID(e.target.value)}/>
+                            <span>StudentID</span>
+                            <input type="text" onChange={e => setStudentID(e.target.value)}/>
+                        </label>
+                        {/* <label>
+                            <span>Password</span>
+                            <input type="text" onChange={e => setPassword(e.target.value)}/>
+                        </label> */}
+                        <label>
+                            <span>Name</span>
+                            <input type="text" onChange={e => setName(e.target.value)}/>
                         </label>
                         <label>
-                            <span>TestID</span>
-                            <input type="number" onChange={e => setTestID(e.target.value)}/>
+                            <span>Mobile</span>
+                            <input type="text" onChange={e => setMobile(e.target.value)}/>
                         </label>
                         <label>
-                            <span>Result</span>
-                            <input type="text" onChange={e => setResult(e.target.value)}/>
+                            <span>Address</span>
+                            <input type="text" onChange={e => setAddress(e.target.value)}/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>
@@ -87,7 +96,8 @@ const UpdateTest= ({history}) => {
                 </div>
             </div>
         </>
+      
     );
 }
 
-export default UpdateTest;
+export default ResetPersonalDetailsStudent;

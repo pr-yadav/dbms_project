@@ -13,7 +13,7 @@ registerDoctor.use(cors());
 registerDoctor.use(bodyParser.json());
 registerDoctor.use(bodyParser.urlencoded({extended:false}));
 
-registerDoctor.post('/registerDoctor', (req,res)=>{
+registerDoctor.post('/resetPersonalDetailsDoctor', (req,res)=>{
     async function passwdHashGenerate(data){
         try{
             const decoded = jwt.verify(data["token"], "hello");
@@ -26,7 +26,6 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                 })
             }
             else{
-                tmp=await bcrypt.hash(data['password'],saltRounds);
                 index.db.connect((err)=>{
                     if(err){
                         console.log(err)
@@ -37,9 +36,9 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                         })
                     }
                     else{
-                        sqlQuery="INSERT INTO health.doctor VALUES (?);";
-                        values=[data['doctorID'],tmp,data['name'],parseInt(JSON.parse(data['mobile'])),data['dept']];
-                        index.db.query(sqlQuery,[values],(err,result)=>{
+                        sqlQuery="UPDATE health.doctor SET name=?, mobile=?, department=? WHERE doctorID=?;";
+                        values=[data['name'],parseInt(JSON.parse(data['mobile'])),data['dept'],data['doctorID']];
+                        index.db.query(sqlQuery,values,(err,result)=>{
                             if(err){
                                 if(err["code"]=="ER_DUP_ENTRY"){
                                     res.send({
@@ -58,16 +57,28 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                                 }
                             }
                             else {
-                                res.send({
-                                    status:200
-                                });
-                                console.log("New Doctor Registered! with ID : "+data['doctorID'])
+                                if(result["affectedRows"]==0){
+                                    res.status(404)
+                                    res.send({
+                                        status:404,
+                                        data:"Entry not found"
+                                    });
+                                    console.log("Tried to change personal details but entry not found")
+                                }
+                                else{
+                                    res.status(200)
+                                    res.send({
+                                        status:200
+                                    });
+                                    console.log("Personal Details of Doctor with ID : "+data['doctorID']+" changed")
+                                }
+                                
                             }
                         })
                     }
                 })
             }
-            return tmp;
+            return 0;
         }
         catch(err){
             console.log(err)

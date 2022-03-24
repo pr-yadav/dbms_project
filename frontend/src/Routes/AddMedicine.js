@@ -1,23 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
-import '../assets/css/UpdateTest.css'
+import '../assets/css/Register.css'
 
-const UpdateTest= ({history}) => {
+
+const AddMedicine= ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
-        console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
-    const [prescriptionID, setPrescriptionID] = useState();
+    const [medicineID, setMedicineID] = useState();
+    const [name, setName] = useState();
+    const [manufacturer, setManufacturer] = useState();
 
-    const [testID, setTestID] = useState();
-    const [result, setResult] = useState();
-    const [database, setDatabase] = useState([])
-    const [active1, setActive1] = useState(false);
-
-
-    async function updateTest(credentials) {
-        return fetch('http://localhost:12345/updateTest', {
+    async function registerUser(credentials) {
+        return fetch('http://localhost:12345/addMedicine', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +23,7 @@ const UpdateTest= ({history}) => {
             return data.json();
         }).then((res)=>{
             if(res["status"]==200){
-                alert("Test Result Updated!")
+                alert("New Medicine Registered!")
             }
             else{
                 alert(res["data"])
@@ -36,28 +32,28 @@ const UpdateTest= ({history}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await updateTest({
+        const token = await registerUser({
             token:JSON.parse(sessionStorage.token),
-            prescriptionID,
-            testID,
-            result
+            medicineID,
+            name,
+            manufacturer,
         });
         // setToken(token);
     }
     const logout=(e)=>{
         sessionStorage.clear()
         history.push('/login')
-      }
-      const back=(e)=>{
-          history.push('/staffDashboard')
-      }
+    }
+    const back=(e)=>{
+        history.push('/staffDashboard')
+    }
 
     return(
         <>
             <div className='navbar-container'>
                 <div className='navbar'>
                     <div className='navbar-heading'>
-                        <h2>Update Test Results</h2>
+                        <h2>Update Pharmacy</h2>
                     </div>
                     <div className='navbar-buttons'>
                         <Button className='navbar-button' onClick={()=>back()}>Back to Dashboard</Button>
@@ -66,19 +62,19 @@ const UpdateTest= ({history}) => {
                 </div>
             </div>
             <div className="main-wrapper">
-                <div className="login-wrapper">
+                <div className="register-wrapper">
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
-                            <span>PrescriptionID</span>
-                            <input type="number" onChange={e => setPrescriptionID(e.target.value)}/>
+                            <span>MedicineID</span>
+                            <input type="text" onChange={e => setMedicineID(e.target.value)}/>
                         </label>
                         <label>
-                            <span>TestID</span>
-                            <input type="number" onChange={e => setTestID(e.target.value)}/>
+                            <span>Name</span>
+                            <input type="text" onChange={e => setName(e.target.value)}/>
                         </label>
                         <label>
-                            <span>Result</span>
-                            <input type="text" onChange={e => setResult(e.target.value)}/>
+                            <span>Manufacturer</span>
+                            <input type="text" onChange={e => setManufacturer(e.target.value)}/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>
@@ -90,4 +86,4 @@ const UpdateTest= ({history}) => {
     );
 }
 
-export default UpdateTest;
+export default AddMedicine;

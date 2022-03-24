@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Dashboard from './Routes/Dashboard';
 import Login from './Routes/Login';
 import RegisterStudent from './Routes/RegisterStudent';
 import RegisterDoctor from './Routes/RegisterDoctor';
@@ -14,6 +13,12 @@ import StaffDashboard from './Routes/StaffDashboard'
 import DoctorDashboard from './Routes/DoctorDashboard'
 import AdminDashboard from './Routes/AdminDashboard'
 import ResetPassword from './Routes/ResetPassword'
+import AddMedicine from './Routes/AddMedicine'
+import ResetPasswordAdmin from './Routes/ResetPasswordAdmin'
+import ResetPersonalDetailsDoctor from './Routes/ResetPersonalDetailsDoctor'
+import ResetPersonalDetailsStudent from './Routes/ResetPersonalDetailsStudent'
+import ResetPersonalDetailsStaff from './Routes/ResetPersonalDetailsStaff'
+
 
 // export function setToken(userToken){
 //     sessionStorage.setItem('token', JSON.stringify(userToken));
@@ -41,6 +46,11 @@ function App() {
                     <Route path="/doctorDashboard" component={DoctorDashboard}/>
                     <Route path="/adminDashboard" component={AdminDashboard}/>
                     <Route path="/resetPassword" component={ResetPassword}/>
+                    <Route path="/addMedicine" component={AddMedicine}/>
+                    <Route path="/resetPasswordAdmin" component={ResetPasswordAdmin}/>
+                    <Route path="/resetPersonalDetailsDoctor" component={ResetPersonalDetailsDoctor}/>
+                    <Route path="/resetPersonalDetailsStudent" component={ResetPersonalDetailsStudent}/>
+                    <Route path="/resetPersonalDetailsStaff" component={ResetPersonalDetailsStaff}/>
                     <Route path='*' component={Login}/>
                 </Switch>
             </BrowserRouter>

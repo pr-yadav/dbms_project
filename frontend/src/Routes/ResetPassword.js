@@ -36,7 +36,7 @@ const ResetPassword= ({history}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(password!=confirmPassword){
-            alert("Passords don't match")
+            alert("Passwords don't match")
         }
         else{
             const token = await reset({

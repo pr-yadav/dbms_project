@@ -25,28 +25,33 @@ const handleSubmit = async (e) => {
     // setToken(token);
 }
 const handleShow = async () =>{
-  fetch('http://localhost:12345/getData', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body:JSON.stringify({token:JSON.parse(sessionStorage.token),studentID:JSON.parse(userName)})
-    }).then(data => {
-        return data.json();
-    }).then((res)=> {
-      console.log(res)
-      if(res["status"]==200){
-        setDatabase(prev => res["data"])
-      }
-      else{
-        alert(res["data"])
-        history.push('/login')
-      }
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-    setActive1(prev => !prev);
+  if(userName==""){
+    alert("Please select a student ID")
+  }
+  else{
+    fetch('http://localhost:12345/getData', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body:JSON.stringify({token:JSON.parse(sessionStorage.token),studentID:JSON.parse(userName)})
+      }).then(data => {
+          return data.json();
+      }).then((res)=> {
+        console.log(res)
+        if(res["status"]==200){
+          setDatabase(prev => res["data"])
+        }
+        else{
+          alert(res["data"])
+          history.push('/login')
+        }
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+      setActive1(prev => !prev);
+  }
 }
 const handleShow2 = async () =>{
     console.log(userName)
@@ -118,7 +123,7 @@ const resetPassword=(e)=>{
             <h2>Dashboard</h2>
           </div>
           <div className='navbar-buttons'>
-          <Button className='navbar-button' onClick={()=>personalData()}>See Personal Data</Button>
+            <Button className='navbar-button' onClick={()=>personalData()}>See Personal Data</Button>
             <Button className='navbar-button' onClick={()=>resetPassword()}>Reset Password</Button>
             <Button className='navbar-button-logout' onClick={()=>logout()}>Logout</Button>
           </div>
@@ -134,7 +139,7 @@ const resetPassword=(e)=>{
                   <input type="text" onChange={e => setUserName(e.target.value)}/>
               </label>
               :
-              <></>
+              <h3>StudentID:{userName}</h3>
               }
               <div>
                   <Button className='set-btn' type="submit">{active3?'Set':'Reset'}</Button>

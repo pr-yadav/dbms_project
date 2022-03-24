@@ -12,7 +12,7 @@ getPharmacy.use(bodyParser.urlencoded({extended:false}));
 
 getPharmacy.post('/getPharmacy', (req,res)=>{
     // data=JSON.parse(req.body);
-    console.log("Request made by studentID : ",req.body)
+    console.log("Request made to get pharmacy status")
     async function getData(data,callback){
         index.db.connect((err)=>{
             if(err) throw err;
@@ -32,7 +32,6 @@ getPharmacy.post('/getPharmacy', (req,res)=>{
     }
     function comp(){
         getData(req.body,(err,result)=>{
-            console.log(result)
             res.send(result)
         })
         

@@ -1,5 +1,5 @@
 const express=require('express');
-const registerDoctor=express.Router();
+const addMedicine=express.Router();
 const index=require('../index');
 const path=require('path');
 const bodyParser=require('body-parser');
@@ -8,25 +8,24 @@ const bcrypt=require('bcrypt');
 const saltRounds=1;
 const mysql=require('mysql2')
 const jwt=require('jsonwebtoken')
-registerDoctor.use(cors());
+addMedicine.use(cors());
 
-registerDoctor.use(bodyParser.json());
-registerDoctor.use(bodyParser.urlencoded({extended:false}));
+addMedicine.use(bodyParser.json());
+addMedicine.use(bodyParser.urlencoded({extended:false}));
 
-registerDoctor.post('/registerDoctor', (req,res)=>{
+addMedicine.post('/addMedicine', (req,res)=>{
     async function passwdHashGenerate(data){
         try{
             const decoded = jwt.verify(data["token"], "hello");
-            if(decoded["userType"]!=3){
-                console.log("Student/Doctor/Staff tried to register new entity")
+            if(decoded["userType"]!=2){
+                console.log("Student/Doctor/Admin tried to add new medicine")
                 res.status(403)
                 res.send({
                     status:403,
-                    data:"Only admin allowed to enter new user"
+                    data:"Only staff allowed to add new medicine"
                 })
             }
             else{
-                tmp=await bcrypt.hash(data['password'],saltRounds);
                 index.db.connect((err)=>{
                     if(err){
                         console.log(err)
@@ -37,16 +36,17 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                         })
                     }
                     else{
-                        sqlQuery="INSERT INTO health.doctor VALUES (?);";
-                        values=[data['doctorID'],tmp,data['name'],parseInt(JSON.parse(data['mobile'])),data['dept']];
-                        index.db.query(sqlQuery,[values],(err,result)=>{
+                        sqlQuery="INSERT INTO health.medicine VALUES (?);";
+                        values=[data['medicineID'],data['name'],data['manufacturer']];
+                        values2=[data['medicineID'],0]
+                        index.db.query(sqlQuery,[values,values2],(err,result)=>{
                             if(err){
                                 if(err["code"]=="ER_DUP_ENTRY"){
                                     res.send({
                                         status:403,
-                                        data:"Doctor ID already exists!"
+                                        data:"Medicine ID already exists!"
                                     });
-                                    console.log("Doctor ID already exists!")
+                                    console.log("Medicine ID already exists!")
                                 }
                                 else{
                                     console.log(err)
@@ -61,13 +61,14 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                                 res.send({
                                     status:200
                                 });
-                                console.log("New Doctor Registered! with ID : "+data['doctorID'])
+                                console.log("New Medicine added! with ID : "+data['medicineID']);
+                                index.db.query("INSERT INTO health.pharmacy VALUES (?);",[values2])
                             }
                         })
                     }
                 })
             }
-            return tmp;
+            return 0;
         }
         catch(err){
             console.log(err)
@@ -83,4 +84,4 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
     
 });
 
-module.exports=registerDoctor;
+module.exports=addMedicine;

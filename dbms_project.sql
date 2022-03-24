@@ -1,44 +1,5 @@
 USE health;
-SELECT * FROM doctor;
-select * FROM medicine;
-SELECT * FROM test;
-SELECT * FROM prescription_desc;
-select * from investigation;
-SELECT health.prescription.prescriptionID,`name`,result,`time` FROM
-                (SELECT prescriptionID,`name`,result FROM
-                (SELECT * FROM health.investigation WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=1239)) AS tmp
-                INNER JOIN
-                health.test ON test.testID=tmp.testID) AS tmp2
-                INNER JOIN
-                health.prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;
-SELECT medicine.medicineID,`name`,availability FROM health.pharmacy INNER JOIN health.medicine ON medicine.medicineID=pharmacy.medicineID
--- INSERT INTO pharmacy VALUES(1,0);
--- INSERT INTO pharmacy VALUES(2,0);
-INSERT INTO student VALUES(1,"hbjskd","helo",0123456789,"jdk");
--- INSERT INTO test(`name`) VALUES("name1");
--- INSERT INTO test(`name`) VALUES("name2");
--- INSERT INTO test(`name`) VALUES("name2");
--- ALTER TABLE medicine CHANGE medicineID medicineID INT AUTO_INCREMENT;
--- SELECT MAX(medicineID) FROM medicine;
--- SELECT * FROM student
--- DELETE FROM health.test WHERE `name`="name2"
--- SELECT * FROM test;
--- SELECT * FROM prescription;
--- SELECT * FROM prescription_desc;
--- SELECT * FROM investigation;
--- SELECT result FROM investigation WHERE prescriptionID=33
-SELECT * FROM student;
-SELECT * FROM prescription;
-SELECT * FROM prescription_desc;
-
--- SELECT tmp2.prescriptionID,`name`,dose,`time` FROM
--- (SELECT prescriptionID,`name`,dose FROM
--- (SELECT * FROM health.prescription_desc WHERE prescriptionID IN(SELECT prescriptionID FROM health.prescription WHERE studentID=1239)) AS tmp
--- INNER JOIN
--- health.medicine ON medicine.medicineID=tmp.medicineID) AS tmp2
--- INNER JOIN
--- prescription ON prescription.prescriptionID=tmp2.prescriptionID ORDER BY prescriptionID DESC;
-SELECT * FROM health.investigation
+SELECT * FROM `admin`;
 CREATE TABLE student(
 	studentID INT,
     `password` VARCHAR(256),
@@ -105,4 +66,7 @@ CREATE TABLE staff(
     mobile INT,
     department VARCHAR(30),
     PRIMARY KEY (staffID)
-)
+);
+ALTER TABLE health.staff ADD COLUMN address VARCHAR(50);
+-- password tmppass
+INSERT INTO `admin` VALUES('tmpuser','$2b$04$s.H/UCeCu8/.h5m/Q4ynqO0PPeiY3Fjip6X..haN5iibGJdImwcJG') 

@@ -43,6 +43,9 @@ const handleShow2 = async () =>{
 const handleShow3 = async () =>{
     history.push('/updateTest')
 }
+const handleShow4 = async () =>{
+  history.push('/addMedicine')
+}
 const personalData = async () =>{
   fetch('http://localhost:12345/getData3', {
         method: 'POST',
@@ -96,6 +99,7 @@ const resetPassword=(e)=>{
       <div className='show-btn'>
         <Button onClick={()=>handleShow()}>{active1?'Hide':'Show'} Current availability of Medicines</Button>
         <Button onClick={()=>handleShow2()}>Update Pharmacy</Button>
+        <Button onClick={()=>handleShow4()}>Add Medicine</Button>
         <Button onClick={()=>handleShow3()}>Update Test</Button>
       </div>
       
