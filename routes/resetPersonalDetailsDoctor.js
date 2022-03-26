@@ -37,7 +37,7 @@ registerDoctor.post('/resetPersonalDetailsDoctor', (req,res)=>{
                     }
                     else{
                         sqlQuery="UPDATE health.doctor SET name=?, mobile=?, department=? WHERE doctorID=?;";
-                        values=[data['name'],parseInt(JSON.parse(data['mobile'])),data['dept'],data['doctorID']];
+                        values=[data['name'],(JSON.parse(data['mobile'])),data['dept'],data['doctorID']];
                         index.db.query(sqlQuery,values,(err,result)=>{
                             if(err){
                                 if(err["code"]=="ER_DUP_ENTRY"){

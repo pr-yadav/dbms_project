@@ -1,5 +1,5 @@
 const express=require('express');
-const registerDoctor=express.Router();
+const addTest=express.Router();
 const index=require('../index');
 const path=require('path');
 const bodyParser=require('body-parser');
@@ -8,25 +8,24 @@ const bcrypt=require('bcrypt');
 const saltRounds=1;
 const mysql=require('mysql2')
 const jwt=require('jsonwebtoken')
-registerDoctor.use(cors());
+addTest.use(cors());
 
-registerDoctor.use(bodyParser.json());
-registerDoctor.use(bodyParser.urlencoded({extended:false}));
+addTest.use(bodyParser.json());
+addTest.use(bodyParser.urlencoded({extended:false}));
 
-registerDoctor.post('/registerDoctor', (req,res)=>{
+addTest.post('/addTest', (req,res)=>{
     async function passwdHashGenerate(data){
         try{
             const decoded = jwt.verify(data["token"], "hello");
-            if(decoded["userType"]!=3){
-                console.log("Student/Doctor/Staff tried to register new entity")
+            if(decoded["userType"]!=2){
+                console.log("Student/Doctor/Admin tried to add new medicine")
                 res.status(403)
                 res.send({
                     status:403,
-                    data:"Only admin allowed to enter new user"
+                    data:"Only staff allowed to add new medicine"
                 })
             }
             else{
-                tmp=await bcrypt.hash(data['password'],saltRounds);
                 index.db.connect((err)=>{
                     if(err){
                         console.log(err)
@@ -37,16 +36,17 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                         })
                     }
                     else{
-                        sqlQuery="INSERT INTO health.doctor VALUES (?);";
-                        values=[data['doctorID'],tmp,data['name'],(JSON.parse(data['mobile'])),data['dept']];
+                        sqlQuery="INSERT INTO health.test(name) VALUES (?);";
+                        values=[data['name']];
+                        try{
                         index.db.query(sqlQuery,[values],(err,result)=>{
                             if(err){
                                 if(err["code"]=="ER_DUP_ENTRY"){
                                     res.send({
                                         status:403,
-                                        data:"Doctor ID already exists!"
+                                        data:"Test ID already exists!"
                                     });
-                                    console.log("Doctor ID already exists!")
+                                    console.log("Test ID already exists!")
                                 }
                                 else{
                                     console.log(err)
@@ -61,13 +61,18 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
                                 res.send({
                                     status:200
                                 });
-                                console.log("New Doctor Registered! with ID : "+data['doctorID'])
+                                console.log("New Test added! with ID : "+result.insertId+" name : "+data["name"]);
+                                values2=[result.insertId,0]
                             }
                         })
+                        }
+                        catch(err){
+                            console.log(err)
+                        }
                     }
                 })
             }
-            return tmp;
+            return 0;
         }
         catch(err){
             console.log(err)
@@ -83,4 +88,4 @@ registerDoctor.post('/registerDoctor', (req,res)=>{
     
 });
 
-module.exports=registerDoctor;
+module.exports=addTest;

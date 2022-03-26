@@ -36,10 +36,10 @@ addMedicine.post('/addMedicine', (req,res)=>{
                         })
                     }
                     else{
-                        sqlQuery="INSERT INTO health.medicine VALUES (?);";
-                        values=[data['medicineID'],data['name'],data['manufacturer']];
-                        values2=[data['medicineID'],0]
-                        index.db.query(sqlQuery,[values,values2],(err,result)=>{
+                        sqlQuery="INSERT INTO health.medicine(name,manufacturer) VALUES (?);";
+                        values=[data['name'],data['manufacturer']];
+                        try{
+                        index.db.query(sqlQuery,[values],(err,result)=>{
                             if(err){
                                 if(err["code"]=="ER_DUP_ENTRY"){
                                     res.send({
@@ -61,10 +61,15 @@ addMedicine.post('/addMedicine', (req,res)=>{
                                 res.send({
                                     status:200
                                 });
-                                console.log("New Medicine added! with ID : "+data['medicineID']);
+                                console.log("New Medicine added! with ID : "+result.insertId+" name : "+data["name"]);
+                                values2=[result.insertId,0]
                                 index.db.query("INSERT INTO health.pharmacy VALUES (?);",[values2])
                             }
                         })
+                        }
+                        catch(err){
+                            console.log(err)
+                        }
                     }
                 })
             }

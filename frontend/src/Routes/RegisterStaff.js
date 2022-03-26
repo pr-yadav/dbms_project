@@ -74,27 +74,27 @@ const RegisterStaff= ({history}) => {
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
                             <span>&nbsp;&nbsp;StaffID&nbsp;&nbsp;</span>
-                            <input type="text" onChange={e => setStaffID(e.target.value)}/>
+                            <input type="text" maxLength="20" onChange={e => setStaffID(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Password</span>
-                            <input type="text" onChange={e => setPassword(e.target.value)}/>
+                            <input type="password" onChange={e => setPassword(e.target.value)} required/>
                         </label>
                         <label>
-                            <span>Name</span>
-                            <input type="text" onChange={e => setName(e.target.value)}/>
+                            <span>&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;</span>
+                            <input type="text" maxLength="50" onChange={e => setName(e.target.value)} required/>
                         </label>
                         <label>
-                            <span>Mobile</span>
-                            <input type="text" onChange={e => setMobile(e.target.value)}/>
+                            <span>&nbsp;&nbsp;Mobile&nbsp;&nbsp;</span>
+                            <input type="text" maxLength="10" minLength="10" onChange={e => setMobile(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Address</span>
-                            <input type="text" onChange={e => setAddress(e.target.value)}/>
+                            <input type="text" maxLength="100" onChange={e => setAddress(e.target.value)} required/>
                         </label>
                         <label>
-                            <span>Department</span>
-                            <input type="text" onChange={e => setDepartment(e.target.value)}/>
+                            <span>&nbsp;&nbsp;&nbsp;Dept.&nbsp;&nbsp;</span>
+                            <input type="text" maxLength="30" onChange={e => setDepartment(e.target.value)}required/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>

@@ -1,22 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import { Table,Button } from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Button } from 'react-bootstrap';
 import '../assets/css/Register.css'
 
-const RegisterStudent= ({history}) => {
+
+const AddTest= ({history}) => {
     if(sessionStorage.length===0)
         history.push('/login')
     else{
-        console.log(JSON.parse(sessionStorage.getItem('token'))['token'])
     }
-
-    const [studentID, setStudentID] = useState();
-    const [password, setPassword] = useState();
     const [name, setName] = useState();
-    const [mobile, setMobile] = useState();
-    const [address, setAddress] = useState();
 
     async function registerUser(credentials) {
-        return fetch('http://localhost:12345/registerStudent', {
+        return fetch('http://localhost:12345/addTest', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,8 +20,8 @@ const RegisterStudent= ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            if(res["status"]==200){
-                alert("New Student Registered!")
+            if(res["status"]===200){
+                alert("New Test Registered!")
             }
             else{
                 alert(res["data"])
@@ -35,13 +30,9 @@ const RegisterStudent= ({history}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await registerUser({
+        await registerUser({
             token:JSON.parse(sessionStorage.token),
-            studentID,
-            password,
             name,
-            mobile,
-            address
         });
         // setToken(token);
     }
@@ -50,7 +41,7 @@ const RegisterStudent= ({history}) => {
         history.push('/login')
     }
     const back=(e)=>{
-        history.push('/adminDashboard')
+        history.push('/staffDashboard')
     }
 
     return(
@@ -58,7 +49,7 @@ const RegisterStudent= ({history}) => {
             <div className='navbar-container'>
                 <div className='navbar'>
                     <div className='navbar-heading'>
-                        <h2>Update Pharmacy</h2>
+                        <h2>Add New Test</h2>
                     </div>
                     <div className='navbar-buttons'>
                         <Button className='navbar-button' onClick={()=>back()}>Back to Dashboard</Button>
@@ -69,26 +60,18 @@ const RegisterStudent= ({history}) => {
             <div className="main-wrapper">
                 <div className="register-wrapper">
                     <form className='form-container' onSubmit={handleSubmit}>
+                        {/* <label>
+                            <span>MedicineID</span>
+                            <input type="text" onChange={e => setMedicineID(e.target.value)}/>
+                        </label> */}
                         <label>
-                            <span>StudentID</span>
-                            <input maxLength="20" type="text" onChange={e => setStudentID(e.target.value)} required/>
-                        </label>
-                        <label>
-                            <span>Password</span>
-                            <input type="password" onChange={e => setPassword(e.target.value)} required/>
-                        </label>
-                        <label>
-                            <span>&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;</span>
+                            <span>Name</span>
                             <input type="text" maxLength="50" onChange={e => setName(e.target.value)} required/>
                         </label>
-                        <label>
-                            <span>&nbsp;&nbsp;Mobile&nbsp;</span>
-                            <input type="text" maxLength="10" minLength="10" onChange={e => setMobile(e.target.value)} required/>
-                        </label>
-                        <label>
-                            <span>&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
-                            <input type="text" maxLength="100" onChange={e => setAddress(e.target.value)} required/>
-                        </label>
+                        {/* <label>
+                            <span>Manufacturer</span>
+                            <input type="text" maxLength="50" onChange={e => setManufacturer(e.target.value)} required/>
+                        </label> */}
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>
                         </div>
@@ -96,8 +79,7 @@ const RegisterStudent= ({history}) => {
                 </div>
             </div>
         </>
-      
     );
 }
 
-export default RegisterStudent;
+export default AddTest;

@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import { Table, Button } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
 import '../assets/css/StaffDashboard.css'
 
 
@@ -12,7 +11,6 @@ const Dashboard = ({history}) => {
     }
     const [database, setDatabase] = useState([])
     const [active1, setActive1] = useState(false);
-    const [active2, setActive2] = useState(false);
 
 useEffect(()=>{
     console.log(JSON.parse(sessionStorage.token)["token"])
@@ -46,6 +44,9 @@ const handleShow3 = async () =>{
 const handleShow4 = async () =>{
   history.push('/addMedicine')
 }
+const handleShow5 = async () =>{
+  history.push('/addTest')
+}
 const personalData = async () =>{
   fetch('http://localhost:12345/getData3', {
         method: 'POST',
@@ -56,7 +57,7 @@ const personalData = async () =>{
     }).then(data => {
         return data.json();
     }).then((res)=> {
-      if(res["status"]==200){
+      if(res["status"]===200){
         alert("StaffID : "+res["data"][0]["staffID"]+
               "\nName : "+res["data"][0]["name"]+
               "\nMobile : "+res["data"][0]["mobile"]+
@@ -100,6 +101,7 @@ const resetPassword=(e)=>{
         <Button onClick={()=>handleShow()}>{active1?'Hide':'Show'} Current availability of Medicines</Button>
         <Button onClick={()=>handleShow2()}>Update Pharmacy</Button>
         <Button onClick={()=>handleShow4()}>Add Medicine</Button>
+        <Button onClick={()=>handleShow5()}>Add Test</Button>
         <Button onClick={()=>handleShow3()}>Update Test</Button>
       </div>
       

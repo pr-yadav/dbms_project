@@ -55,8 +55,6 @@ const ResetPassword= ({history}) => {
                         <h2>Reset Password</h2>
                     </div>
                     <div className='navbar-buttons'>
-                        {/* <Button className='navbar-button' onClick={()=>handleShow()}>See Personal Data</Button>
-                        <Button className='navbar-button' onClick={()=>handleShow2()}>Reset Password</Button> */}
                     </div>
                 </div>
             </div>
@@ -65,11 +63,11 @@ const ResetPassword= ({history}) => {
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
                             <span>Password</span>
-                            <input type="text" onChange={e => setPassword(e.target.value)}/>
+                            <input type="password" onChange={e => setPassword(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Confirm Password</span>
-                            <input type="text" onChange={e => setConfirmPassword(e.target.value)}/>
+                            <input type="password" onChange={e => setConfirmPassword(e.target.value)} required/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>

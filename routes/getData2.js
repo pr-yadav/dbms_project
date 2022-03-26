@@ -11,7 +11,7 @@ geData.use(bodyParser.json());
 geData.use(bodyParser.urlencoded({extended:false}));
 
 geData.post('/getData2', (req,res)=>{
-    console.log("Request made by studentID : ",req.body)
+    console.log("Request made by jwt : ",req.body)
     async function getPrescriptionID(data,callback){
         try{
             const decoded = jwt.verify(data["token"], "hello");
@@ -76,7 +76,6 @@ geData.post('/getData2', (req,res)=>{
     }
     function comp(){
         getPrescriptionID(req.body,(err,prescriptionID)=>{
-            console.log(prescriptionID)
             res.send({
                 status:200,
                 data:prescriptionID

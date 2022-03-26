@@ -70,25 +70,21 @@ const ResetPersonalDetailsStudent= ({history}) => {
                 <div className="register-wrapper">
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
-                            <span>StudentID</span>
-                            <input type="text" onChange={e => setStudentID(e.target.value)}/>
-                        </label>
-                        {/* <label>
-                            <span>Password</span>
-                            <input type="text" onChange={e => setPassword(e.target.value)}/>
-                        </label> */}
-                        <label>
-                            <span>Name</span>
-                            <input type="text" onChange={e => setName(e.target.value)}/>
-                        </label>
-                        <label>
-                            <span>Mobile</span>
-                            <input type="text" onChange={e => setMobile(e.target.value)}/>
-                        </label>
-                        <label>
-                            <span>Address</span>
-                            <input type="text" onChange={e => setAddress(e.target.value)}/>
-                        </label>
+                                <span>StudentID</span>
+                                <input maxLength="20" type="text" onChange={e => setStudentID(e.target.value)} required/>
+                            </label>
+                            <label>
+                                <span>&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;</span>
+                                <input type="text" maxLength="50" onChange={e => setName(e.target.value)} required/>
+                            </label>
+                            <label>
+                                <span>&nbsp;&nbsp;Mobile&nbsp;</span>
+                                <input type="text" maxLength="10" minLength="10" onChange={e => setMobile(e.target.value)} required/>
+                            </label>
+                            <label>
+                                <span>&nbsp;&nbsp;Address&nbsp;&nbsp;</span>
+                                <input type="text" maxLength="100" onChange={e => setAddress(e.target.value)} required/>
+                            </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>
                         </div>

@@ -34,7 +34,6 @@ const AddMedicine= ({history}) => {
         e.preventDefault();
         const token = await registerUser({
             token:JSON.parse(sessionStorage.token),
-            medicineID,
             name,
             manufacturer,
         });
@@ -64,17 +63,17 @@ const AddMedicine= ({history}) => {
             <div className="main-wrapper">
                 <div className="register-wrapper">
                     <form className='form-container' onSubmit={handleSubmit}>
-                        <label>
+                        {/* <label>
                             <span>MedicineID</span>
                             <input type="text" onChange={e => setMedicineID(e.target.value)}/>
-                        </label>
+                        </label> */}
                         <label>
                             <span>Name</span>
-                            <input type="text" onChange={e => setName(e.target.value)}/>
+                            <input type="text" maxLength="50" onChange={e => setName(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Manufacturer</span>
-                            <input type="text" onChange={e => setManufacturer(e.target.value)}/>
+                            <input type="text" maxLength="50" onChange={e => setManufacturer(e.target.value)} required/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>

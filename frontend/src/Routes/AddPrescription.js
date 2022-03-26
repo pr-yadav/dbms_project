@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { Table, Button } from 'react-bootstrap';
 import '../assets/css/AddPrescription.css'
 
@@ -16,6 +16,10 @@ const DynamicTable = ({history}) =>{
     const [active3, setActive3] = useState(true);
     const [active2, setActive2] = useState(false);
     const [active1, setActive1] = useState(false);
+    const [active4, setActive4] = useState(false);
+    const [active5, setActive5] = useState(false);
+    const [database, setDatabase] = useState([])
+    const [database2, setDatabase2] = useState([])
     const handleSubmit = async (e) => {
         e.preventDefault();
         setActive3(prev => !prev);
@@ -33,12 +37,12 @@ const DynamicTable = ({history}) =>{
     }
     const deleteRowP=(val, index)=>{
         // console.log(i)
-        const arr = items.filter((val)=>items[index]!=val);
+        const arr = items.filter((val)=>items[index]!==val);
         setItems(prev => arr)
     }
     const deleteRowI=(val, index)=>{
         // console.log(i)
-        const arr = items.filter((val)=>items[index]!=val);
+        const arr = items.filter((val)=>items[index]!==val);
         setItemsI(prev => arr)
     }
     const addPrescription=(e)=>{
@@ -53,7 +57,7 @@ const DynamicTable = ({history}) =>{
             return data.json();
         }).then((res)=>{
             console.log(res)
-            if(res["status"]==200){
+            if(res["status"]===200){
                 alert("Prescription added!")
                 history.push('/doctorDashboard')
             }
@@ -69,6 +73,43 @@ const DynamicTable = ({history}) =>{
       }
       const back=(e)=>{
           history.push('/doctorDashboard')
+      }
+      const handleShow = async () =>{
+        fetch('http://localhost:12345/getPharmacy', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
+    }).then(data => {
+      console.log(data.json)
+        return data.json();
+    }).then((res)=> {
+      setDatabase(prev => res)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+    setActive4(prev => !prev);
+      }
+      const handleShow2 = async () =>{
+        fetch('http://localhost:12345/getTest', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
+    }).then(data => {
+      console.log(data.json)
+        return data.json();
+    }).then((res)=> {
+
+      setDatabase2(prev => res)
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+          setActive5(prev => !prev);
       }
     return(
         <>
@@ -107,6 +148,74 @@ const DynamicTable = ({history}) =>{
                     <Button className='set-btn' type="submit">{active3?'Set':'Reset'}</Button>
                 </div>
             </form>
+            <div className='show-btn-div'>
+                <Button onClick={()=>handleShow()}>{active1?'Hide':'Show'} Medicine Table</Button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <Button onClick={()=>handleShow2()}>{active2?'Hide':'Show'} Test Table</Button>
+            </div>
+            <div className='forms-container'>
+            {
+            active4
+            ?
+            <div className='form_'>
+                <h3>Medicines</h3>
+              <Table striped bordered hover responsive>
+            <thead>
+              <tr>
+                <th>Medicine ID</th>
+                <th>Medicine Name</th>
+                <th>Availability</th>
+              </tr> 
+            </thead>
+            <tbody>
+              {
+                database.map((row)=>{
+                  return(
+                    <tr key={row['medicineID']}>
+                      <td>{row['medicineID']}</td>
+                      <td>{row['name']}</td>
+                      <td>{row['availability']}</td>
+                    </tr>)
+                })
+              }
+            </tbody>
+          </Table>
+            </div>
+            :
+            <></>
+          }
+          {
+            active5
+            ?
+            <div className='form_'>
+              <h3>Tests</h3>
+              <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                    <th>Test ID</th>
+                    <th>Name Name</th>
+                  </tr> 
+                </thead>
+                <tbody>
+                  {
+                    database2.map((row)=>{
+                      return(
+                        // <tr key={row['prescriptionID']}>
+                        <tr>
+                          <td>{row['testID']}</td>
+                          <td>{row['name']}</td>
+                          {/* <td>{row['result']}</td> */}
+                          {/* <td>{row['time']}</td> */}
+                        </tr>)
+                    })
+                  }
+                </tbody>
+              </Table>
+            </div>
+            :
+            <></>
+          }
+        </div>
             <div className='forms-container'>
                 <div className='form_'>
                     <form onSubmit={addRowP} className='form-container'>
@@ -117,7 +226,7 @@ const DynamicTable = ({history}) =>{
                         </label>
                         <label>
                             <span>Dose</span>
-                            <input type="number" onChange={e=>setDose(e.target.value)}/>
+                            <input type="text" onChange={e=>setDose(e.target.value)}/>
                         </label>
                         <div>
                             <Button type='submit'>Add Medicine to prescription</Button>

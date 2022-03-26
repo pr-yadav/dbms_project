@@ -73,15 +73,15 @@ const ResetPassword= ({history}) => {
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
                             <span>Username</span>
-                            <input type="text" onChange={e => setUserID(e.target.value)}/>
+                            <input type="text" maxLength="20" onChange={e => setUserID(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Password</span>
-                            <input type="text" onChange={e => setPassword(e.target.value)}/>
+                            <input type="password" onChange={e => setPassword(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Confirm Password</span>
-                            <input type="text" onChange={e => setConfirmPassword(e.target.value)}/>
+                            <input type="password" onChange={e => setConfirmPassword(e.target.value)} required/>
                         </label>
                         <label>
                             <span>User Type</span>

@@ -17,6 +17,7 @@ errc=1
 addPrescription.post('/addPrescription', (req,res)=>{
     data=req.body
     async function add(data){
+        
         try{
             const decoded = jwt.verify(data["token"], "hello");
             try{
@@ -30,6 +31,7 @@ addPrescription.post('/addPrescription', (req,res)=>{
                     })
                 }
                 else{
+                    
                     index.db.connect((err)=>{
                         try{
                             if(err){
@@ -42,6 +44,7 @@ addPrescription.post('/addPrescription', (req,res)=>{
                                 })
                             }
                             else{
+                                
                                 sqlQuery="INSERT INTO health.prescription(studentID,doctorID) VALUES(?)";
                                 values=[data["studentID"],data["doctorID"]]
                                 index.db.query(sqlQuery,[values],(err,result)=>{
@@ -68,6 +71,13 @@ addPrescription.post('/addPrescription', (req,res)=>{
                                                 })
                                             }
                                             i=0
+                                            if(data["investigation"].length==0 && errc){
+                                                errc=0
+                                                res.send({
+                                                    status:200
+                                                });
+                                                console.log("New Prescription added with ID : "+prescriptionID)
+                                            }
                                             for (test in data["investigation"]){
                                                 i+=1
                                                 sqlQuery2="INSERT INTO health.investigation VALUES(?)";

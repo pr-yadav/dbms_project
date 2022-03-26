@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
 import '../assets/css/UpdatePharmacy.css'
 
@@ -24,7 +24,7 @@ const UpdatePharmacy= ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            if(res["status"]==200){
+            if(res["status"]===200){
                 alert("Medicne Availability updated!")
             }
             else{
@@ -34,7 +34,7 @@ const UpdatePharmacy= ({history}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await updatePharmacy({
+        await updatePharmacy({
             token:JSON.parse(sessionStorage.token),
             medicineID,
             availability
@@ -119,11 +119,11 @@ const UpdatePharmacy= ({history}) => {
                 <form className='form-container' onSubmit={handleSubmit}>
                     <label>
                         <span>MedicineID</span>
-                        <input type="number" onChange={e => setMedicineID(e.target.value)}/>
+                        <input type="text" maxLength="8" onChange={e => setMedicineID(e.target.value)} required/>
                     </label>
                     <label>
                         <span>Availability</span>
-                        <input type="number" onChange={e => setAvailability(e.target.value)}/>
+                        <input type="text" maxLength="8" onChange={e => setAvailability(e.target.value)} required/>
                     </label>
                     <div>
                         <Button className='set-btn' type="submit">Submit</Button>

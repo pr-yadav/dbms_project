@@ -28,9 +28,17 @@
     padding: 10px;
 }
 
-.show-btn button{
+.show-btn .show-btn-div button{
     margin-right: 16px;
     margin-bottom: 16px;
+}
+.show-btn-div{
+
+    display: flex;
+    width: 100%;
+    text-align: center;
+    margin-top: 32px;
+    justify-content: center;
 }
 .navbar-button{
     margin-right: 10px;

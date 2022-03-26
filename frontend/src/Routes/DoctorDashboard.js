@@ -10,7 +10,7 @@ const Dashboard = ({history}) => {
     }
     const [database, setDatabase] = useState([])
     const [database2, setDatabase2] = useState([])
-    const [userName, setUserName] = useState([])
+    const [userName, setUserName] = useState("")
     const [active1, setActive1] = useState(false);
     const [active2, setActive2] = useState(false);
     const [active3, setActive3] = useState(true);
@@ -25,7 +25,7 @@ const handleSubmit = async (e) => {
     // setToken(token);
 }
 const handleShow = async () =>{
-  if(userName==""){
+  if(userName===""){
     alert("Please select a student ID")
   }
   else{
@@ -34,12 +34,11 @@ const handleShow = async () =>{
           headers: {
               'Content-Type': 'application/json',
           },
-          body:JSON.stringify({token:JSON.parse(sessionStorage.token),studentID:JSON.parse(userName)})
+          body:JSON.stringify({token:JSON.parse(sessionStorage.token),studentID:JSON.parse(JSON.stringify(userName))})
       }).then(data => {
           return data.json();
       }).then((res)=> {
-        console.log(res)
-        if(res["status"]==200){
+        if(res["status"]===200){
           setDatabase(prev => res["data"])
         }
         else{
@@ -54,17 +53,16 @@ const handleShow = async () =>{
   }
 }
 const handleShow2 = async () =>{
-    console.log(userName)
     fetch('http://localhost:12345/getData2', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body:JSON.stringify({token:JSON.parse(sessionStorage.token),studentID:JSON.parse(userName)})
+        body:JSON.stringify({token:JSON.parse(sessionStorage.token),studentID:JSON.parse(JSON.stringify(userName))})
     }).then(data => {
         return data.json();
     }).then((res)=> {
-      if(res["status"]==200){
+      if(res["status"]===200){
         setDatabase2(prev => res["data"])
       }
       else{
@@ -91,7 +89,7 @@ const personalData = async () =>{
     }).then(data => {
         return data.json();
     }).then((res)=> {
-      if(res["status"]==200){
+      if(res["status"]===200){
         alert("DoctorID : "+res["data"][0]["doctorID"]+
               "\nName : "+res["data"][0]["name"]+
               "\nMobile : "+res["data"][0]["mobile"]+

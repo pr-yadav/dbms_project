@@ -17,7 +17,7 @@ reset.post('/resetPasswordAdmin', (req,res)=>{
     async function passwdHashGenerate(data){
         try{
             const decoded = jwt.verify(data["token"], "hello");
-            console.log("Password reset request by : "+decoded["userID"])
+            console.log("Password reset request by admin user : "+decoded["userID"])
             tmp=await bcrypt.hash(data['password'],saltRounds);
             var typeS = JSON.stringify(data["userType"]);
             var typeD = JSON.parse(typeS);
@@ -26,15 +26,15 @@ reset.post('/resetPasswordAdmin', (req,res)=>{
                 else{
                     if(typeD==0){
                         sqlQuery="UPDATE health.student SET password=? WHERE studentID=?"
-                        values=[tmp,parseInt(data["userID"])];
+                        values=[tmp,data["userID"]];
                     }
                     else if(typeD==1){
                         sqlQuery="UPDATE health.doctor SET password=? WHERE doctorID=?"
-                        values=[tmp,parseInt(data["userID"])];
+                        values=[tmp,data["userID"]];
                     }
                     else if(typeD==2){
                         sqlQuery="UPDATE health.staff SET password=? WHERE staffID=?"
-                        values=[tmp,parseInt(data["userID"])];
+                        values=[tmp,data["userID"]];
                     }
                     
                     index.db.query(sqlQuery,values,(err,result)=>{

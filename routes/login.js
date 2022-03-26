@@ -5,7 +5,8 @@ const path=require('path');
 const bodyParser=require('body-parser');
 const cors = require('cors');
 const bcrypt=require('bcrypt')
-const jwt=require('jsonwebtoken')
+const jwt=require('jsonwebtoken');
+const { strictEqual } = require('assert');
 login.use(cors());
 
 login.use(bodyParser.json());
@@ -27,17 +28,17 @@ login.post('/login', (req,res)=>{
             var d = JSON.parse(s);
             var typeS = JSON.stringify(data["userType"]);
             var typeD = JSON.parse(typeS);
-            if(typeD==0){
+            if(typeD==='0'){
                 sqlQuery="SELECT password FROM health.student WHERE studentID=?"
-                d=parseInt(d)
+                d=d
             }
-            else if(typeD==1){
+            else if(typeD==='1'){
                 sqlQuery="SELECT password FROM health.doctor WHERE doctorID=?"
-                d=parseInt(d)
+                d=d
             }
-            else if(typeD==2){
+            else if(typeD==='2'){
                 sqlQuery="SELECT password FROM health.staff WHERE staffID=?"
-                d=parseInt(d)
+                d=d
             }
             else{
                 sqlQuery="SELECT password FROM health.admin WHERE username=?"
@@ -45,17 +46,17 @@ login.post('/login', (req,res)=>{
             try{
                 index.db.query(sqlQuery,[d],(err,result)=>{
                     if(err){
-                        res.status(403)
+                        res.status(404)
                         res.send({
-                            status:403,
+                            status:404,
                             token:"User Not found"
                         })
                         console.log(err)
                     }
-                    if(result.length==0){
-                        res.status(403)
+                    else if(result.length==0){
+                        res.status(404)
                         res.send({
-                            status:403,
+                            status:404,
                             token:"User Not found"
                         })
                     }
@@ -72,6 +73,7 @@ login.post('/login', (req,res)=>{
                                 status:200,
                                 token:token
                             });
+                            console.log("Login by userID : "+d+" of type : "+typeD)
                         }
                         else{
                             res.status(403)
@@ -84,9 +86,9 @@ login.post('/login', (req,res)=>{
                 })
             }
             catch(err){
-                res.status(403)
+                res.status(404)
                 res.send({
-                    status:403,
+                    status:404,
                     token:"User Not found"
                 })
                 console.log(err)

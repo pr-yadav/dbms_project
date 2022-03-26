@@ -31,6 +31,9 @@ const resetPasswordAdmin=require('./routes/resetPasswordAdmin.js')
 const resetPersonalDetailsDoctor=require('./routes/resetPersonalDetailsDoctor.js')
 const resetPersonalDetailsStudent=require('./routes/resetPersonalDetailsStudent.js')
 const resetPersonalDetailsStaff=require('./routes/resetPersonalDetailsStaff.js')
+const addTest=require('./routes/addTest.js')
+const getTest=require('./routes/getTest.js')
+
 
 app.use('/',login);
 app.use('/',registerStudent)
@@ -49,6 +52,9 @@ app.use('/',resetPasswordAdmin)
 app.use('/',resetPersonalDetailsStudent)
 app.use('/',resetPersonalDetailsDoctor)
 app.use('/',resetPersonalDetailsStaff)
+app.use('/',addTest)
+app.use('/',getTest)
+
 
 // app.use(function (req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/dashboard');

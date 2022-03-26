@@ -1,25 +1,24 @@
 USE health;
-SELECT * FROM `admin`;
 CREATE TABLE student(
-	studentID INT,
+	studentID VARCHAR(20),
     `password` VARCHAR(256),
     `name` VARCHAR(50),
-    mobile INT,
+    mobile VARCHAR(10),
     address VARCHAR(100),
     PRIMARY KEY (studentID)
 );
 CREATE TABLE doctor(
-	doctorID INT,
+	doctorID VARCHAR(20),
     `password` VARCHAR(256),
     `name` VARCHAR(50),
-    mobile INT,
+    mobile VARCHAR(10),
     department VARCHAR(30),
     PRIMARY KEY (doctorID)
 );
 CREATE TABLE prescription(
 	prescriptionID INT NOT NULL AUTO_INCREMENT,
-    studentID INT NOT NULL,
-    doctorID INT NOT NULL,
+    studentID VARCHAR(20) NOT NULL,
+    doctorID VARCHAR(20) NOT NULL,
     `time` DATETIME DEFAULT CURRENT_TIMESTAMP(),
     PRIMARY KEY (prescriptionID),
     FOREIGN KEY(studentID) REFERENCES student(studentID),
@@ -39,7 +38,7 @@ CREATE TABLE test(
 CREATE TABLE prescription_desc(
 	prescriptionID INT NOT NULL,
     medicineID INT,
-    dose INT,
+    dose VARCHAR(3),
     FOREIGN KEY(medicineID) REFERENCES medicine(medicineID),
     FOREIGN KEY(prescriptionID) REFERENCES prescription(prescriptionID)
 );
@@ -56,17 +55,17 @@ CREATE TABLE pharmacy(
     FOREIGN KEY(medicineID) REFERENCES medicine(medicineID)
 );
 CREATE TABLE `admin`(
-	username VARCHAR(10),
+	username VARCHAR(20),
     `password` VARCHAR(256)
 );
 CREATE TABLE staff(
-	staffID INT,
+	staffID VARCHAR(20),
     `password` VARCHAR(256),
     `name` VARCHAR(50),
-    mobile INT,
+    mobile VARCHAR(10),
     department VARCHAR(30),
+    address VARCHAR(50),
     PRIMARY KEY (staffID)
 );
-ALTER TABLE health.staff ADD COLUMN address VARCHAR(50);
 -- password tmppass
 INSERT INTO `admin` VALUES('tmpuser','$2b$04$s.H/UCeCu8/.h5m/Q4ynqO0PPeiY3Fjip6X..haN5iibGJdImwcJG') 

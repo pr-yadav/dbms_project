@@ -14,13 +14,13 @@ const Login = ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            if(res["status"]==200){
+            if(res["status"]===200){
                 sessionStorage.setItem('token', JSON.stringify(res["token"]))
-                if(userType=='0')
+                if(userType==='0')
                     history.push('/studentDashboard')
-                else if(userType=='1')
+                else if(userType==='1')
                     history.push('/doctorDashboard')
-                else if(userType=='2')
+                else if(userType==='2')
                     history.push('/staffDashboard')
                 else
                     history.push('/adminDashboard')
@@ -36,7 +36,7 @@ const Login = ({history}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await loginUser({
+        await loginUser({
             username,
             password,
             userType
@@ -49,11 +49,11 @@ const Login = ({history}) => {
                 <h3>Login</h3>
                 <label>
                     <span>Username</span>
-                    <input type="text" onChange={e => setUserName(e.target.value)}/>
+                    <input maxLength="20" size="20" type="text" onChange={e => setUserName(e.target.value)} required/>
                 </label>
                 <label>
                     <span>Password</span>
-                    <input type="password" onChange={e => setPassword(e.target.value)}/>
+                    <input size="20" type="password" onChange={e => setPassword(e.target.value)} required/>
                 </label>
                 <label>
                     <span>User Type</span>

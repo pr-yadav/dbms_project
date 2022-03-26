@@ -37,8 +37,7 @@ registerStudent.post('/resetPersonalDetailsStudent', (req,res)=>{
                 }
                 else{
                     sqlQuery="UPDATE health.student SET name=?, mobile=?, address=? WHERE studentID=?;";
-                    console.log(data)
-                    values=[data['name'],parseInt(JSON.parse(data['mobile'])),data['address'],data['studentID']];
+                    values=[data['name'],(JSON.parse(data['mobile'])),data['address'],data['studentID']];
                     index.db.query(sqlQuery,values,(err,result)=>{
                         if(err){
                             if(err["code"]=="ER_DUP_ENTRY"){

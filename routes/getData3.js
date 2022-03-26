@@ -11,7 +11,7 @@ getData3.use(bodyParser.json());
 getData3.use(bodyParser.urlencoded({extended:false}));
 
 getData3.post('/getData3', (req,res)=>{
-    console.log("Request made by user with ID : ",req.body)
+    console.log("Request made by jwt : ",req.body)
     async function getPrescriptionID(data,callback){
         try{
             const decoded = jwt.verify(data["token"], "hello");

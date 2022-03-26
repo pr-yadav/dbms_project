@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import { Table,Button } from 'react-bootstrap';
+import React, {useState} from 'react';
+import {Button } from 'react-bootstrap';
 import '../assets/css/UpdateTest.css'
 
 const UpdateTest= ({history}) => {
@@ -12,8 +12,6 @@ const UpdateTest= ({history}) => {
 
     const [testID, setTestID] = useState();
     const [result, setResult] = useState();
-    const [database, setDatabase] = useState([])
-    const [active1, setActive1] = useState(false);
 
 
     async function updateTest(credentials) {
@@ -26,7 +24,7 @@ const UpdateTest= ({history}) => {
         }).then(data => {
             return data.json();
         }).then((res)=>{
-            if(res["status"]==200){
+            if(res["status"]===200){
                 alert("Test Result Updated!")
             }
             else{
@@ -36,7 +34,7 @@ const UpdateTest= ({history}) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await updateTest({
+        await updateTest({
             token:JSON.parse(sessionStorage.token),
             prescriptionID,
             testID,
@@ -70,15 +68,15 @@ const UpdateTest= ({history}) => {
                     <form className='form-container' onSubmit={handleSubmit}>
                         <label>
                             <span>PrescriptionID</span>
-                            <input type="number" onChange={e => setPrescriptionID(e.target.value)}/>
+                            <input type="text" onChange={e => setPrescriptionID(e.target.value)} required/>
                         </label>
                         <label>
                             <span>TestID</span>
-                            <input type="number" onChange={e => setTestID(e.target.value)}/>
+                            <input type="text" onChange={e => setTestID(e.target.value)} required/>
                         </label>
                         <label>
                             <span>Result</span>
-                            <input type="text" onChange={e => setResult(e.target.value)}/>
+                            <input maxLength="100" type="text" onChange={e => setResult(e.target.value)} required/>
                         </label>
                         <div>
                             <Button className='set-btn' type="submit">Submit</Button>

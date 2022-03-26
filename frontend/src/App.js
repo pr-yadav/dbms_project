@@ -18,6 +18,7 @@ import ResetPasswordAdmin from './Routes/ResetPasswordAdmin'
 import ResetPersonalDetailsDoctor from './Routes/ResetPersonalDetailsDoctor'
 import ResetPersonalDetailsStudent from './Routes/ResetPersonalDetailsStudent'
 import ResetPersonalDetailsStaff from './Routes/ResetPersonalDetailsStaff'
+import AddTest from './Routes/AddTest'
 
 
 // export function setToken(userToken){
@@ -51,6 +52,7 @@ function App() {
                     <Route path="/resetPersonalDetailsDoctor" component={ResetPersonalDetailsDoctor}/>
                     <Route path="/resetPersonalDetailsStudent" component={ResetPersonalDetailsStudent}/>
                     <Route path="/resetPersonalDetailsStaff" component={ResetPersonalDetailsStaff}/>
+                    <Route path="/addTest" component={AddTest}/>
                     <Route path='*' component={Login}/>
                 </Switch>
             </BrowserRouter>

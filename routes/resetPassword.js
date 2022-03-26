@@ -24,15 +24,15 @@ reset.post('/resetPassword', (req,res)=>{
                 else{
                     if(decoded["userType"]==0){
                         sqlQuery="UPDATE health.student SET password=? WHERE studentID=?"
-                        values=[tmp,parseInt(decoded["userID"])];
+                        values=[tmp,(decoded["userID"])];
                     }
                     else if(decoded["userType"]==1){
                         sqlQuery="UPDATE health.doctor SET password=? WHERE doctorID=?"
-                        values=[tmp,parseInt(decoded["userID"])];
+                        values=[tmp,(decoded["userID"])];
                     }
                     else if(decoded["userType"]==2){
                         sqlQuery="UPDATE health.staff SET password=? WHERE staffID=?"
-                        values=[tmp,parseInt(decoded["userID"])];
+                        values=[tmp,(decoded["userID"])];
                     }
                     else{
                         sqlQuery="UPDATE health.admin SET password=? WHERE username=?"
