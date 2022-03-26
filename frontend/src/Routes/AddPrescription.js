@@ -52,6 +52,7 @@ const DynamicTable = ({history}) =>{
         }).then(data => {
             return data.json();
         }).then((res)=>{
+            console.log(res)
             if(res["status"]==200){
                 alert("Prescription added!")
                 history.push('/doctorDashboard')
@@ -106,89 +107,93 @@ const DynamicTable = ({history}) =>{
                     <Button className='set-btn' type="submit">{active3?'Set':'Reset'}</Button>
                 </div>
             </form>
-            <div className='left'>
-                <form onSubmit={addRowP} className='form-container'>
-                    <h2>Enter Medicines</h2>
-                    <label>
-                        <span>MedicineID</span>
-                        <input type="text" onChange={e=>setMedicineID(e.target.value)}/>
-                    </label>
-                    <label>
-                        <span>Dose</span>
-                        <input type="number" onChange={e=>setDose(e.target.value)}/>
-                    </label>
-                    <div>
-                        <Button type='submit'>Add Medicine to prescription</Button>
-                    </div>
-                </form>
-                {active1?
-                <Table striped border hover responsive>
-                    <thead>
-                        <tr>
-                            <th>MedicineID</th>
-                            <th>Dose</th>
-                            {/* <th></th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            items.map((row, index)=>{
-                                return(
-                                    <tr key={index}>
-                                        <td>{row['medicineID']}</td>
-                                        <td>{row['dose']}</td>
-                                        <td><Button onClick={() => deleteRowP(i, index)}>Delete</Button> </td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </Table>
-                :
-                <></>}
-            </div>     
-            <div className='right'>
-                <form onSubmit={addRowI} className='form-container'>
-                    <h2>Enter Tests</h2>
-                    <label>
-                        <p>TestID</p>
-                        <input type="text" onChange={e=>setTestID(e.target.value)}/>
-                    </label>
-                    <div>
-                        <Button type='submit'>Enter Test ID to add</Button>
-                    </div>
-                </form>
-                {active2?
-                <Table striped border hover responsive>
-                    <thead>
-                        <tr>
-                            <th>testID</th>
-                            {/* <th>Dose</th> */}
-                            {/* <th></th> */}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            itemsI.map((row,index)=>{
-                                return(
-                                    <tr key={i}>
-                                        <td>{row['testID']}</td>
-                                        <td><Button onClick={() => deleteRowI(i, index)}>Delete</Button> </td>
-                                        {/* <td>{row['dose']}</td> */}
-                                        {/* <td><Button type='submit' onClick={deleteRow(e,i)}>Delete</Button> </td> */}
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </Table>
-                :
-                <></>
-                }
+            <div className='forms-container'>
+                <div className='form_'>
+                    <form onSubmit={addRowP} className='form-container'>
+                        <h2>Enter Medicines</h2>
+                        <label>
+                            <span>MedicineID</span>
+                            <input type="text" onChange={e=>setMedicineID(e.target.value)}/>
+                        </label>
+                        <label>
+                            <span>Dose</span>
+                            <input type="number" onChange={e=>setDose(e.target.value)}/>
+                        </label>
+                        <div>
+                            <Button type='submit'>Add Medicine to prescription</Button>
+                        </div>
+                    </form>
+                    {active1?
+                    <Table striped border hover responsive>
+                        <thead>
+                            <tr>
+                                <th>MedicineID</th>
+                                <th>Dose</th>
+                                {/* <th></th> */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                items.map((row, index)=>{
+                                    return(
+                                        <tr key={index}>
+                                            <td>{row['medicineID']}</td>
+                                            <td>{row['dose']}</td>
+                                            <td><Button onClick={() => deleteRowP(i, index)}>Delete</Button> </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                    :
+                    <></>}
+                </div>     
+                <div className='form_'>
+                    <form onSubmit={addRowI} className='form-container'>
+                        <h2>Enter Tests</h2>
+                        <label>
+                            <p>TestID</p>
+                            <input type="text" onChange={e=>setTestID(e.target.value)}/>
+                        </label>
+                        <div>
+                            <Button type='submit'>Enter Test ID to add</Button>
+                        </div>
+                    </form>
+                    {active2?
+                    <Table striped border hover responsive>
+                        <thead>
+                            <tr>
+                                <th>testID</th>
+                                {/* <th>Dose</th> */}
+                                {/* <th></th> */}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                itemsI.map((row,index)=>{
+                                    return(
+                                        <tr key={i}>
+                                            <td>{row['testID']}</td>
+                                            <td><Button onClick={() => deleteRowI(i, index)}>Delete</Button> </td>
+                                            {/* <td>{row['dose']}</td> */}
+                                            {/* <td><Button type='submit' onClick={deleteRow(e,i)}>Delete</Button> </td> */}
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                    :
+                    <></>
+                    }
+                </div>
             </div>
         </div>
             <div className='form-wrapper' onClick={addPrescription}>
-                <Button type='submit'>Add Prescription</Button>
+                <center>
+                    <Button type='submit'>Add Prescription</Button>
+                </center>
             </div>
         </>
     )
