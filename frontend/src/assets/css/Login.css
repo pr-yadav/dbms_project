@@ -12,6 +12,7 @@
 }
 
 .form-container{
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,4 +46,10 @@
 }
 .login-btn{
     background: rgb(0, 167, 0);
+}
+body{
+    background-image: url("placeholder.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
 }

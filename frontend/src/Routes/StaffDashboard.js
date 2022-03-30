@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Table, Button } from 'react-bootstrap';
 import '../assets/css/StaffDashboard.css'
+import image from '../assets/download.png';
 
 
 const Dashboard = ({history}) => {
@@ -86,6 +87,7 @@ const resetPassword=(e)=>{
     <>
     <div className='navbar-container'>
         <div className='navbar'>
+        <img src={image} height={100} width={100} />
           <div className='navbar-heading'>
             <h2>Dashboard</h2>
           </div>

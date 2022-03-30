@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Table,Button } from 'react-bootstrap';
 import '../assets/css/Register.css'
 
+import image from '../assets/download.png';
 
 const ResetPassword= ({history}) => {
     if(sessionStorage.length===0)
@@ -51,6 +52,7 @@ const ResetPassword= ({history}) => {
         <>
             <div className='navbar-container'>
                 <div className='navbar'>
+                <img src={image} height={100} width={100} />
                     <div className='navbar-heading'>
                         <h2>Reset Password</h2>
                     </div>

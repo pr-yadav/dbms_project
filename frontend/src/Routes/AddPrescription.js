@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import { Table, Button } from 'react-bootstrap';
 import '../assets/css/AddPrescription.css'
+import image from '../assets/download.png';
 
 var i=0
 const DynamicTable = ({history}) =>{
@@ -115,6 +116,7 @@ const DynamicTable = ({history}) =>{
         <>
         <div className='navbar-container'>
             <div className='navbar'>
+            <img src={image} height={100} width={100} />
                 <div className='navbar-heading'>
                     <h2>Dashboard</h2>
                 </div>

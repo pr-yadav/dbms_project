@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import '../assets/css/AdminDashboard.css'
+import image from '../assets/download.png';
+import background from "../assets/placeholder.jpg";
 
 const Dashboard = ({history}) => {
     if(sessionStorage.length===0)
@@ -48,9 +50,10 @@ const Dashboard = ({history}) => {
     }
   
   return(
-    <>
+      <>
         <div className='navbar-container'>
             <div className='navbar'>
+            <img src={image} height={100} width={100} />
                 <div className='navbar-heading'>
                     <h2>Dashboard</h2>
                 </div>
@@ -71,7 +74,7 @@ const Dashboard = ({history}) => {
                 <Button onClick={()=>handleShow7()}>Update Personal Details for staff</Button>
             </div>
         </div>
-  </>
+        </>
   );
 }
 
