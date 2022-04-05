@@ -113,7 +113,7 @@ const resetPassword=(e)=>{
             <h2>Dashboard</h2>
           </div>
           <div className='navbar-buttons'>
-            <Button className='navbar-button' onClick={()=>personalData()}>See Personal Data</Button>
+            <Button className='navbar-button' onClick={()=>personalData()}>Personal Data</Button>
             <Button className='navbar-button' onClick={()=>resetPassword()}>Reset Password</Button>
             <Button className='navbar-button-logout' onClick={()=>logout()}>Logout</Button>
           </div>

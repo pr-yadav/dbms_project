@@ -47,10 +47,11 @@
 }
 
 .tables-container .table_ {
-    height: 80vh;
+    max-height: 80vh;
     overflow-y: scroll;
     box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
     padding: 24px;
+    background-color: aliceblue;
 }
 
 .table > thead{

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import '../assets/css/Login.css';
 import { Button } from 'react-bootstrap';
-import image from '../assets/download.png';
+import image from '../assets/image.png';
 
 const Login = ({history}) => {
     sessionStorage.clear()
@@ -47,8 +47,8 @@ const Login = ({history}) => {
     return(
         <div className="login-wrapper">
             <form onSubmit={handleSubmit} className='form-container'>
-            <img src={image} height={100} width={100}/>
-                <h3>Login</h3>
+            <img src={image} height={100} width={100} alt=""/>
+                <h2>Login</h2>
                 <label>
                     <span>Username</span>
                     <input maxLength="20" size="20" type="text" onChange={e => setUserName(e.target.value)} required/>

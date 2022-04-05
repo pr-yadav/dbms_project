@@ -6,9 +6,10 @@
     min-height: 80vh;
 }
 
-.login-wrapper h3{
+.login-wrapper h2{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-bottom: 16px;
+    margin-top: 16px;
 }
 
 .form-container{

@@ -116,7 +116,7 @@ const DynamicTable = ({history}) =>{
         <>
         <div className='navbar-container'>
             <div className='navbar'>
-            <img src={image} height={100} width={100} />
+            <img src={image} height={100} width={100} alt="" />
                 <div className='navbar-heading'>
                     <h2>Dashboard</h2>
                 </div>
@@ -264,7 +264,7 @@ const DynamicTable = ({history}) =>{
                     <form onSubmit={addRowI} className='form-container'>
                         <h2>Enter Tests</h2>
                         <label>
-                            <p>TestID</p>
+                            <span>TestID </span>
                             <input type="text" onChange={e=>setTestID(e.target.value)}/>
                         </label>
                         <div>
