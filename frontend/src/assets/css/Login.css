@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 80vh;
+    /* min-height: 80vh; */
 }
 
 .login-wrapper h2{
@@ -23,6 +23,10 @@
     border-radius: 16px;
     transition: all;
     transition-duration: 1s;
+}
+
+.login-wrapper .form-container{
+    margin-top: 20vh;
 }
 
 .form-container:hover{
@@ -48,9 +52,10 @@
 .login-btn{
     background: rgb(0, 167, 0);
 }
-body{
+.whole-wrapper{
     background-image: url("placeholder.jpg");
     background-repeat: no-repeat;
     background-position: center top;
     background-size: cover;
+    height: 100vh;
 }

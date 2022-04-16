@@ -45,6 +45,7 @@ const Login = ({history}) => {
         // setToken(token);
     }
     return(
+        <body className='whole-wrapper'>
         <div className="login-wrapper">
             <form onSubmit={handleSubmit} className='form-container'>
             <img src={image} height={100} width={100} alt=""/>
@@ -72,6 +73,7 @@ const Login = ({history}) => {
                 </div>
             </form>
         </div>
+        </body>
     )
 }
 

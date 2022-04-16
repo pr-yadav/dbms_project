@@ -168,6 +168,7 @@ const resetPassword=(e)=>{
                 <thead>
                   <tr>
                     <th>Prescription ID</th>
+                    {/* <th>Test ID</th> */}
                     <th>Test Name</th>
                     <th>Result</th>
                     {/* <th>Time</th> */}
@@ -180,6 +181,7 @@ const resetPassword=(e)=>{
                         // <tr key={row['prescriptionID']}>
                         <tr>
                           <td>{row['prescriptionID']}</td>
+                          {/* <td>{row['testID']}</td> */}
                           <td>{row['name']}</td>
                           <td>{row['result']}</td>
                           {/* <td>{row['time']}</td> */}

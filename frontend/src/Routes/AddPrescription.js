@@ -118,7 +118,7 @@ const DynamicTable = ({history}) =>{
             <div className='navbar'>
             <img src={image} height={100} width={100} alt="" />
                 <div className='navbar-heading'>
-                    <h2>Dashboard</h2>
+                    <h2>Add Prescription</h2>
                 </div>
                 <div className='navbar-buttons'>
                     <Button className='navbar-button' onClick={()=>back()}>Back</Button>

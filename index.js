@@ -1,4 +1,5 @@
 const http = require('http');
+require('dotenv').config()
 const express=require('express');
 const app =express();
 const hostname='localhost';
@@ -67,11 +68,11 @@ app.use('/',getTest)
 
 
 const db=mysql.createConnection({
-    user:"cs315",
-    host:"localhost",
-    password:"Cs315_health_booklet",
-    databse:"health",
-    port:"3306"
+    user: process.env.DB_USER,
+    host:process.env.DB_HOST,
+    password:process.env.DB_PASSWORD,
+    databse:process.env.DB_DATABASE,
+    port:process.env.DB_PORT
 });
 const server=app.listen(port,hostname,()=>{
     console.log('Server running at http://localhost:12345');

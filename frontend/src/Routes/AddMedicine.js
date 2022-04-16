@@ -54,7 +54,7 @@ const AddMedicine= ({history}) => {
                 <div className='navbar'>
                 <img src={image} height={100} width={100} />
                     <div className='navbar-heading'>
-                        <h2>Update Pharmacy</h2>
+                        <h2>Add Medicine</h2>
                     </div>
                     <div className='navbar-buttons'>
                         <Button className='navbar-button' onClick={()=>back()}>Back to Dashboard</Button>
