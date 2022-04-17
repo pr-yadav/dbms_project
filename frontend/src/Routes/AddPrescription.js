@@ -9,8 +9,8 @@ const DynamicTable = ({history}) =>{
         history.push('/login')
     var [items,setItems]=useState([])
     var [itemsI,setItemsI]=useState([])
-    var [studentID,setStudentID]=useState(0)
-    var [doctorID,setDoctorID]=useState(0)
+    var [studentID,setStudentID]=useState("")
+    var [doctorID,setDoctorID]=useState("")
     var [medicineID,setMedicineID]=useState(0)
     var [testID,setTestID]=useState(0)
     var [dose,setDose]=useState(0)
@@ -47,7 +47,11 @@ const DynamicTable = ({history}) =>{
         setItemsI(prev => arr)
     }
     const addPrescription=(e)=>{
+        if(studentID===""){
+            alert("Please select a student ID")
+        }
         // e.preventDefault
+        else{
         return fetch('http://localhost:12345/addPrescription', {
             method: 'POST',
             headers: {
@@ -67,6 +71,7 @@ const DynamicTable = ({history}) =>{
                 alert(res["data"])
             }
         })
+        }
     }
     const logout=(e)=>{
         sessionStorage.clear()
@@ -76,24 +81,33 @@ const DynamicTable = ({history}) =>{
           history.push('/doctorDashboard')
       }
       const handleShow = async () =>{
+        if(studentID===""){
+            alert("Please select a student ID")
+        }
+        else{
         fetch('http://localhost:12345/getPharmacy', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({id:JSON.parse(sessionStorage.token)["token"]})
-    }).then(data => {
-      console.log(data.json)
-        return data.json();
-    }).then((res)=> {
-      setDatabase(prev => res)
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
-    setActive4(prev => !prev);
-      }
+        }).then(data => {
+        console.log(data.json)
+            return data.json();
+        }).then((res)=> {
+        setDatabase(prev => res)
+        })
+        .catch((err)=>{
+        console.log(err);
+        })
+        setActive4(prev => !prev);
+        }
+        }
       const handleShow2 = async () =>{
+        if(studentID===""){
+            alert("Please select a student ID")
+        }
+        else{
         fetch('http://localhost:12345/getTest', {
         method: 'POST',
         headers: {
@@ -111,6 +125,7 @@ const DynamicTable = ({history}) =>{
       console.log(err);
     })
           setActive5(prev => !prev);
+    }
       }
     return(
         <>

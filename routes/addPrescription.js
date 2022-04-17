@@ -48,6 +48,7 @@ addPrescription.post('/addPrescription', (req,res)=>{
                                 sqlQuery="INSERT INTO health.prescription(studentID,doctorID) VALUES(?)";
                                 values=[data["studentID"],data["doctorID"]]
                                 index.db.query(sqlQuery,[values],(err,result)=>{
+                                try{
                                     prescriptionID=result.insertId
                                     if(err && errc){ }
                                     else {
@@ -125,8 +126,16 @@ addPrescription.post('/addPrescription', (req,res)=>{
                                             })
                                         }
                                     }
-                                    
+                                }
+                                catch(err){
+                                    res.send({
+                                        status:404,
+                                        data:"Use correct studentID"
+                                    })
+                                }    
                                 })
+                                
+                                
                                 
                             }
                         }
